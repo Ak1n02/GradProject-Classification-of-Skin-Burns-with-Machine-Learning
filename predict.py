@@ -9,7 +9,7 @@ import trained_model as tmodel
 tf.keras.backend.clear_session()
 
 # Load the trained model
-model = load_model("burn_classification_cnn.h5")
+model = load_model("burn_classification_cnn.keras")
 
 def preprocess_image(img_path):
     img = image.load_img(img_path, target_size=(224, 224))  # Resize

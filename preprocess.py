@@ -46,8 +46,6 @@ def fuzzy_c_means_gpu_torch(data, n_clusters, m=2, error=0.005, maxiter=100):
 
     return centers.cpu().numpy().squeeze(), u.cpu().numpy()  # Move back to CPU for further processing
 
-# Path to the Dataset directory
-dataset_directory = "Dataset_bgrem/"
 
 # Function to process each image
 def process_image(image_path):
@@ -144,37 +142,24 @@ def process_image(image_path):
     return image, segmented_image, combined_image, burn_image, healthy_skin_image
 
 
-# Loop through all images in the dataset directory
-for filename in os.listdir(dataset_directory):
-    if filename.endswith(".jpg") or filename.endswith(".png"):
-        image_path = os.path.join(dataset_directory, filename)
+def main():
+    dataset_directory = 'Dataset_Test_Eren/ThirdDegreeRB'
+    output_directory = 'Dataset_Test_Eren/ThirdDegreeSegmented'
+    # Loop through all images in the dataset directory
+    for filename in os.listdir(dataset_directory):
+        if filename.endswith(".jpg") or filename.endswith(".png"):
+            image_path = os.path.join(dataset_directory, filename)
 
-        # Process the image
-        original_image, segmented_image, result_image, burn_image, healthy_skin_image  = process_image(image_path)
+            # Process the image
+            original_image, _, _, burn_image, healthy_skin_image  = process_image(image_path)
 
-        # Display results for each image in separate plots
-        plt.figure(figsize=(6, 6))
-        plt.imshow(cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB))
-        plt.title(f"Original Image: {filename}")
-        plt.show()
+            # Save The Outputs
+            burn_output_path = os.path.join(output_directory, f"burn_{filename}")
+            healthy_output_path = os.path.join(output_directory, f"healthy_skin_{filename}")
 
-        plt.figure(figsize=(6, 6))
-        plt.imshow(segmented_image, cmap='gray')
-        plt.title(f"FCM Segmentation: {filename}")
-        plt.show()
+            cv2.imwrite(burn_output_path, burn_image)
+            cv2.imwrite(healthy_output_path, healthy_skin_image)
 
-        # Display results
-        plt.figure(figsize=(6, 6))
-        plt.imshow(cv2.cvtColor(result_image, cv2.COLOR_BGR2RGB))
-        plt.title(f"Only Healhty skin and burn area: {filename}")
-        plt.show()
 
-        plt.figure(figsize=(6, 6))
-        plt.imshow(cv2.cvtColor(burn_image, cv2.COLOR_BGR2RGB))
-        plt.title(f"Burn Area Masked: {filename}")
-        plt.show()
-
-        plt.figure(figsize=(6, 6))
-        plt.imshow(cv2.cvtColor(healthy_skin_image, cv2.COLOR_BGR2RGB))
-        plt.title(f"Healthy Skin Masked: {filename}")
-        plt.show()
+if __name__ == '__main__':
+    main()

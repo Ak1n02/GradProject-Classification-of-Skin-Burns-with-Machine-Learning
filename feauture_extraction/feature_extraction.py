@@ -2,9 +2,10 @@ import os
 import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
-from scipy.stats import kurtosis
+from scipy.stats import kurtosis, skew
 
-def get_hue(folder_index, img, feature_type, type_number=1):
+
+def get_features(folder_index, img, feature_type, type_number=1):
 
     # Load image and convert to LAB color space
     lab_img = cv.cvtColor(img, cv.COLOR_BGR2LAB)
@@ -19,6 +20,10 @@ def get_hue(folder_index, img, feature_type, type_number=1):
     valid_mask = (a_valid != 0) | (b_valid != 0)
     a_valid = a_valid[valid_mask]
     b_valid = b_valid[valid_mask]
+
+    # Compute mean and std of a* and b* values
+    mean_val_a, std_val_a = np.mean(a_valid, dtype=np.float64), np.std(a_valid, dtype=np.float64)
+    mean_val_b, std_val_b = np.mean(b_valid, dtype=np.float64), np.std(b_valid, dtype=np.float64)
 
     if feature_type == 'hue':
         # Compute hue values from a*,b* pairs and normalize to [0, 1]
@@ -41,34 +46,44 @@ def get_hue(folder_index, img, feature_type, type_number=1):
 
     elif feature_type == 'kurtosis_feature':
         if type_number == 1:
-            kurtosis_a = kurtosis(a_valid, fisher=True)
-            kurtosis_b = kurtosis(b_valid, fisher=True)
-            print(f"Degree: {folder_index + 1} Kurtosis A: {kurtosis_a:.2f}, Kurtosis B: {kurtosis_b:.2f}")
-            return kurtosis_a, kurtosis_b
+            kurtosis_a, kurtosis_b = kurtosis(a_valid, fisher=True), kurtosis(b_valid, fisher=True)
         else:
-            mean_val_a = np.mean(a_valid)
-            std_val_a = np.std(a_valid)
-            fourth_moment = np.mean((a_valid - mean_val_a) ** 4)
-            kurtosis_a = (fourth_moment / (std_val_a * mean_val_a)) if std_val_a != 0 else 0
-            mean_val_b = np.mean(b_valid)
-            std_val_b = np.std(b_valid)
-            fourth_moment = np.mean((b_valid - mean_val_b) ** 4)
-            kurtosis_b = fourth_moment / (std_val_b * mean_val_b) if std_val_b != 0 else 0
-            print(f"Degree: {folder_index + 1} Kurtosis A: {kurtosis_a:.2f}, Kurtosis B: {kurtosis_b:.2f}")
-            return kurtosis_a, kurtosis_b
+            fourth_moment_a, fourth_moment_b = np.mean((a_valid - mean_val_a) ** 4), np.mean((b_valid - mean_val_b) ** 4)
+            kurtosis_a = (fourth_moment_a / (std_val_a * mean_val_a)) if std_val_a != 0 else 0
+            kurtosis_b = (fourth_moment_b / (std_val_b * mean_val_b)) if std_val_b != 0 else 0
+
+        print(f"Degree: {folder_index + 1} Kurtosis A: {kurtosis_a:.2f}, Kurtosis B: {kurtosis_b:.2f}")
+        return kurtosis_a, kurtosis_b
+
+    elif feature_type == 'skewness':
+        if type_number == 1:
+            if (std_val_a == 0 or len(a_valid) < 2) and (std_val_b == 0 or len(b_valid) < 2):
+                skewness_a, skewness_b  = 0, 0
+            elif std_val_a == 0 or len(a_valid) < 2:
+                skewness_a, skewness_b  = 0, skew(b_valid)
+            elif std_val_b == 0 or len(b_valid) < 2:
+                skewness_a, skewness_b  = skew(a_valid), 0
+            else:
+                skewness_a, skewness_b  = skew(a_valid), skew(b_valid)
+        else:
+            skewness_a = np.mean((a_valid - mean_val_a) ** 3) / (std_val_a ** 3) if std_val_a != 0 and len(a_valid) >= 2 else 0
+            skewness_b = np.mean((b_valid - mean_val_b) ** 3) / (std_val_b ** 3) if std_val_b != 0 and len(b_valid) >= 2 else 0
+        print(f"Degree: {folder_index + 1} Skewness A: {skewness_a:.2f}, Skewness B: {skewness_b:.2f}")
+        return skewness_a, skewness_b
+
 
 def plot_information(folder_index, folder_path, feature_type):
 
     x_axis = []  # x-axis
     feature_data = [] # y-axis
-    labels = {'hue': ('Hue Mean', 'Hue Std'), 'kurtosis_feature': ('Kurtosis A', 'Kurtosis B')}
-    colors = {'hue': ('b', 'g'), 'kurtosis_feature': ('b', 'g')}
+    labels = {'hue': ('Hue Mean', 'Hue Std'), 'kurtosis_feature': ('Kurtosis A', 'Kurtosis B'), 'skewness': ('Skewness A', 'Skewness B')}
+    colors = {'hue': ('b', 'g'), 'kurtosis_feature': ('b', 'g'), 'skewness': ('b', 'g')}
 
     for index, filename in enumerate(os.listdir(folder_path)):
         if (filename.endswith(".jpg") or filename.endswith(".png")) and filename.startswith('burn'):
             image_path = os.path.join(folder_path, filename)
             image = cv.imread(image_path)
-            data = get_hue(folder_index, image, feature_type, 2)
+            data = get_features(folder_index, image, feature_type, 1)
             feature_data.append(data)
             x_axis.append(index + 1)
 
@@ -100,7 +115,7 @@ def plot_information(folder_index, folder_path, feature_type):
 def main():
     folder_paths = ['../Dataset_Test_Eren/FirstDegreeSegmented', '../Dataset_Test_Eren/SecondDegreeSegmented', '../Dataset_Test_Eren/ThirdDegreeSegmented']
     for index, folder_path in enumerate(folder_paths):
-        plot_information(index, folder_path, 'kurtosis_feature')
+        plot_information(index, folder_path, 'skewness')
 
 if __name__ == '__main__':
     main()

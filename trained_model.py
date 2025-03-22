@@ -33,8 +33,7 @@ def train_model():
     model.fit(train_ds, validation_data=val_ds, epochs=20)
 
     # Save the trained model
-    model.save("burn_classification_cnn.h5")
-
+    model.save("burn_classification_cnn.keras")
 
 # Ensure training happens only when running the script directly
 if __name__ == "__main__":

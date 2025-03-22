@@ -51,6 +51,7 @@ def remove_background_u2net(image_path):
 
     return result_rgb
 
+
 # Remove background using rembg
 def remove_background_rembg(image_path):
     input_image = Image.open(image_path)
@@ -85,39 +86,84 @@ def histogram_difference(img1, img2):
     return cv2.compareHist(hist1, hist2, cv2.HISTCMP_CORREL)
 
 
-# Decide the best method
-def decide_best_method(output_u2net, output_rembg):
+# Decide the best method for background removal
+def decide_best_method(output_u2net, output_rembg, original_image,image_path, min_foreground_threshold=0.2):
     score_ssim = compare_images(output_u2net, output_rembg)
-    score_foreground = foreground_pixel_analysis(output_u2net)
+    score_foreground = foreground_pixel_analysis(output_u2net)  # Measure how much foreground remains
     score_edge = edge_similarity(output_u2net, output_rembg)
     score_hist = histogram_difference(output_u2net, output_rembg)
 
-    if(score_foreground<0.2):
-        return (output_rembg, "rembg")
+    # If the foreground proportion is too low, return the original image
+    if needs_background_removal(image_path) and score_foreground < min_foreground_threshold:
+        print("Skipping background removal: Foreground too small")
+        return original_image, "Original"
 
+    # Compute the weighted scores
     u2net_score = (score_ssim + score_foreground + score_edge + score_hist) / 4
     rembg_score = (1 - score_ssim + (1 - score_foreground) + (1 - score_edge) + (1 - score_hist)) / 4
 
-    return (output_u2net, "U-2-Net") if u2net_score > rembg_score else (output_rembg, "rembg")
+    best_output = output_u2net if u2net_score > rembg_score else output_rembg
+    best_method = "U-2-Net" if u2net_score > rembg_score else "rembg"
+
+    return best_output, best_method
 
 
-# Process and choose the best result
-def process_and_choose_best(image_path, output_path):
+def process_image(image_path):
+    original_image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)  # Load the original image
+    original_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
+
+    # Remove background using U-2-Net and rembg
     output_u2net = remove_background_u2net(image_path)
     output_rembg = remove_background_rembg(image_path)
 
-    best_output, best_method = decide_best_method(output_u2net, output_rembg)
+    # Decide which method provides the best result
+    best_output, best_method = decide_best_method(output_u2net, output_rembg, original_image, image_path)
 
-    # Convert the result to a PIL image (RGBA)
-    best_output_pil = Image.fromarray(best_output)
+    # Replace transparent background with white in the selected output
+    best_output_with_white_bg = replace_with_white_background(best_output)
 
-    # Create a white background image
-    white_bg = Image.new("RGB", (best_output.shape[1], best_output.shape[0]), (255, 255, 255))
-    white_bg.paste(best_output_pil, (0, 0), best_output_pil)
+    print(f"Using method: {best_method}")
+    return best_output_with_white_bg
 
-    # Save the result as PNG
-    white_bg.save(output_path, "PNG")
-    print(f"Processed: {image_path} → {output_path} (Best Method: {best_method})")
+
+# Replace transparent or background pixels with a white background
+def replace_with_white_background(image):
+    if image.shape[2] == 4:  # If the image has an alpha channel (RGBA)
+        # Extract the alpha channel
+        alpha_channel = image[:, :, 3]
+
+        # Create a mask for the transparent pixels
+        transparent_mask = alpha_channel == 0
+
+        # Replace transparent pixels with white (255, 255, 255)
+        image[transparent_mask] = [255, 255, 255, 255]  # Set the RGB channels to white and keep alpha intact
+
+    else:
+        # If the image is RGB, just return it as is (no transparency to replace)
+        pass
+
+    return image
+
+
+# **Improved: Decide whether to remove background at all**
+def needs_background_removal(img_path):
+    image = cv2.imread(img_path, cv2.IMREAD_COLOR)
+    saliency = cv2.saliency.StaticSaliencyFineGrained_create()
+    _, saliency_map = saliency.computeSaliency(image)
+
+    threshold = 0.4  # Adjusted based on experiments
+    saliency_score = np.mean(saliency_map)
+
+    # Alternative condition: Only remove background if a clear subject exists
+    #high_saliency_ratio = np.sum(saliency_map > 0.6) / saliency_map.size
+
+    return saliency_score < threshold
+
+# Process and save the best result
+def process_and_save(image_path, output_path):
+    processed_image = process_image(image_path)
+    Image.fromarray(processed_image).save(output_path, "PNG")
+
 
 # Process all images in a directory
 def process_directory(input_dir, output_dir):
@@ -129,11 +175,11 @@ def process_directory(input_dir, output_dir):
         if filename.lower().endswith(image_extensions):
             input_path = os.path.join(input_dir, filename)
             output_path = os.path.join(output_dir, os.path.splitext(filename)[0] + ".png")
-            process_and_choose_best(input_path, output_path)
+            process_and_save(input_path, output_path)
 
 
 # Example Usage
 if __name__ == "__main__":
-    input_folder = "Dataset_Test_Eren/ThirdDegree"  # Change this to your input directory
-    output_folder = "Dataset_Test_Eren/ThirdDegreeRB"  # Change this to your output directory
+    input_folder = "Ak1n02 bg-rem test_eren First_Degree"
+    output_folder = "Ak1n02 bg-rem test_eren First_Degree_removed"
     process_directory(input_folder, output_folder)

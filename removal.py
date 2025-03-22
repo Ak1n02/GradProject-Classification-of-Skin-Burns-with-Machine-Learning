@@ -134,6 +134,6 @@ def process_directory(input_dir, output_dir):
 
 # Example Usage
 if __name__ == "__main__":
-    input_folder = "Dataset_Test_Eren/ThirdDegree"  # Change this to your input directory
-    output_folder = "Dataset_Test_Eren/ThirdDegreeRB"  # Change this to your output directory
+    input_folder = "../Third_Degre_Extra"  # Change this to your input directory
+    output_folder = "../Third_Degree_ExtraRB"  # Change this to your output directory
     process_directory(input_folder, output_folder)

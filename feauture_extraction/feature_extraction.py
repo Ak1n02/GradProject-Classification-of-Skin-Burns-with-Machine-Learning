@@ -40,7 +40,7 @@ def get_features(folder_index, img, feature_type, type_number=1):
         else:
             hue_mean = np.mean(hue_values, dtype=np.float64)
             hue_std = np.std(hue_values, dtype=np.float64)
-            print(f"Degree: {folder_index + 1} Hue Mean: {hue_mean:.2f}, Hue Std: {hue_std:.2f}")
+            print(f"Degree: {folder_index + 1}, Hue Mean: {hue_mean:.2f}, Hue Std: {hue_std:.2f}")
 
         return hue_mean, hue_std
 
@@ -52,7 +52,7 @@ def get_features(folder_index, img, feature_type, type_number=1):
             kurtosis_a = (fourth_moment_a / (std_val_a * mean_val_a)) if std_val_a != 0 else 0
             kurtosis_b = (fourth_moment_b / (std_val_b * mean_val_b)) if std_val_b != 0 else 0
 
-        print(f"Degree: {folder_index + 1} Kurtosis A: {kurtosis_a:.2f}, Kurtosis B: {kurtosis_b:.2f}")
+        print(f"Degree: {folder_index + 1}, Kurtosis A: {kurtosis_a:.2f}, Kurtosis B: {kurtosis_b:.2f}")
         return kurtosis_a, kurtosis_b
 
     elif feature_type == 'skewness':
@@ -68,7 +68,7 @@ def get_features(folder_index, img, feature_type, type_number=1):
         else:
             skewness_a = np.mean((a_valid - mean_val_a) ** 3) / (std_val_a ** 3) if std_val_a != 0 and len(a_valid) >= 2 else 0
             skewness_b = np.mean((b_valid - mean_val_b) ** 3) / (std_val_b ** 3) if std_val_b != 0 and len(b_valid) >= 2 else 0
-        print(f"Degree: {folder_index + 1} Skewness A: {skewness_a:.2f}, Skewness B: {skewness_b:.2f}")
+        print(f"Degree: {folder_index + 1}, Skewness A: {skewness_a:.2f}, Skewness B: {skewness_b:.2f}")
         return skewness_a, skewness_b
 
 
@@ -83,7 +83,7 @@ def plot_information(folder_index, folder_path, feature_type):
         if (filename.endswith(".jpg") or filename.endswith(".png")) and filename.startswith('burn'):
             image_path = os.path.join(folder_path, filename)
             image = cv.imread(image_path)
-            data = get_features(folder_index, image, feature_type, 1)
+            data = get_features(folder_index, image, feature_type, 2)
             feature_data.append(data)
             x_axis.append(index + 1)
 

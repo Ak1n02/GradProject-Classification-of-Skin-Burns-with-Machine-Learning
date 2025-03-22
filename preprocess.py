@@ -143,8 +143,8 @@ def process_image(image_path):
 
 
 def main():
-    dataset_directory = 'Dataset_Test_Eren/ThirdDegreeRB'
-    output_directory = 'Dataset_Test_Eren/ThirdDegreeSegmented'
+    dataset_directory = '../Third_Degree_ExtraRB'
+    output_directory = '../Third_Degree_Segmented'
     # Loop through all images in the dataset directory
     for filename in os.listdir(dataset_directory):
         if filename.endswith(".jpg") or filename.endswith(".png"):

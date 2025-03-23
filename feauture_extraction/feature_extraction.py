@@ -4,6 +4,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 from scipy.stats import kurtosis, skew
 
+def normalize(channel):
+    return (channel - np.min(channel)) / (np.max(channel) - np.min(channel)) if np.max(channel) - np.min(channel) != 0 else 0
 
 def get_features(folder_index, img, feature_type, type_number=1):
 
@@ -115,7 +117,7 @@ def plot_information(folder_index, folder_path, feature_type):
 def main():
     folder_paths = ['../Dataset_Test_Eren/FirstDegreeSegmented', '../Dataset_Test_Eren/SecondDegreeSegmented', '../Dataset_Test_Eren/ThirdDegreeSegmented']
     for index, folder_path in enumerate(folder_paths):
-        plot_information(index, folder_path, 'skewness')
+        plot_information(index, folder_path, 'hue')
 
 if __name__ == '__main__':
     main()

@@ -6,14 +6,14 @@ def collect_all(folder_paths, feature_types, type_kurtosis=1, type_skewness=1):
     datas = []
     for index, folder_path in enumerate(folder_paths):
         if index == 0:
-            datas.append(pd.read_csv(f'{folder_path}/General_HueStd.csv'))
+            datas.append(pd.read_csv(f'{folder_path}/General.csv'))
         else:
             if feature_types[index] == 'kurtosis':
-                feature_data = pd.read_csv(f'{folder_path}/{"Fisher (Normal)" if type_kurtosis == 1 else "Article"}/General_a.csv')
+                feature_data = pd.read_csv(f'{folder_path}/{"Fisher (Normal)" if type_kurtosis == 1 else "Article"}/General.csv')
                 feature_data = feature_data.loc[:, ~feature_data.columns.isin(datas[0].columns)]
                 datas.append(feature_data)
             elif feature_types[index] == 'skewness':
-                feature_data = pd.read_csv(f'{folder_path}/{"Default" if type_skewness == 1 else "Article"}/General_b.csv')
+                feature_data = pd.read_csv(f'{folder_path}/{"Default" if type_skewness == 1 else "Article"}/General.csv')
                 feature_data = feature_data.loc[:, ~feature_data.columns.isin(datas[0].columns)]
                 datas.append(feature_data)
             else:
@@ -22,7 +22,7 @@ def collect_all(folder_paths, feature_types, type_kurtosis=1, type_skewness=1):
                 datas.append(feature_data)
 
     data = pd.concat(datas, axis=1)
-    data.to_csv(f'../Dataset_Test_Eren/Graphs/Datasets/Dataset_Vector_a_Kurtosis_b_Skewness.csv', index=False)
+    data.to_csv(f'../Dataset_Test_Eren/Graphs/Datasets/Dataset_Vector.csv', index=False)
 
 '''    hue_data, kurtosis_data, skewness_data = pd.read_csv(f'{folder_paths[0]}/General_HueStd.csv'), [], []
     if type_kurtosis == 1:
@@ -145,8 +145,8 @@ def arrange_folders():
 
 
 if __name__ == '__main__':
-    folders = ['../Dataset_Test_Eren/Graphs/Hue', '../Dataset_Test_Eren/Graphs/Kurtosis', '../Dataset_Test_Eren/Graphs/Skewness']
-    features_types = ['hue', 'kurtosis', 'skewness']
+    folders = ['../Dataset_Test_Eren/Graphs/Hue', '../Dataset_Test_Eren/Graphs/Kurtosis', '../Dataset_Test_Eren/Graphs/Skewness', '../Dataset_Test_Eren/Graphs/HSV/Saturation', '../Dataset_Test_Eren/Graphs/HSV/Value']
+    features_types = ['hue', 'kurtosis', 'skewness', 'hsv_saturation', 'hsv_value']
 #    collect_degrees(folders, 2, 2)
     collect_all(folders, features_types, 2, 2)
 #    arrange_folders()

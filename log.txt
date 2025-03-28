@@ -1,0 +1,234 @@
+Log of 28.03.2025 k=10 epochs=20 CNN: burn_classification_cnn_gpu_pytorch.pth
+Training on Fold 1/10...
+Epoch 1/20 - Train Loss: 1.0352, Train Acc: 49.5820 - Val Loss: 0.8759, Val Acc: 50.8671
+Epoch 2/20 - Train Loss: 0.8603, Train Acc: 57.3633 - Val Loss: 0.7799, Val Acc: 60.4046
+Epoch 3/20 - Train Loss: 0.8154, Train Acc: 60.8199 - Val Loss: 0.7292, Val Acc: 68.0636
+Epoch 4/20 - Train Loss: 0.7730, Train Acc: 62.6045 - Val Loss: 0.7517, Val Acc: 67.3410
+Epoch 5/20 - Train Loss: 0.7238, Train Acc: 67.4598 - Val Loss: 0.6379, Val Acc: 71.5318
+Epoch 6/20 - Train Loss: 0.6651, Train Acc: 70.4019 - Val Loss: 0.6000, Val Acc: 74.7110
+Epoch 7/20 - Train Loss: 0.6039, Train Acc: 73.8103 - Val Loss: 0.5295, Val Acc: 79.3353
+Epoch 8/20 - Train Loss: 0.5650, Train Acc: 75.4823 - Val Loss: 0.4775, Val Acc: 82.0809
+Epoch 9/20 - Train Loss: 0.5256, Train Acc: 77.8457 - Val Loss: 0.4408, Val Acc: 83.5260
+Epoch 10/20 - Train Loss: 0.4712, Train Acc: 80.4502 - Val Loss: 0.3938, Val Acc: 86.1272
+Epoch 11/20 - Train Loss: 0.4146, Train Acc: 83.2154 - Val Loss: 0.4105, Val Acc: 81.7919
+Epoch 12/20 - Train Loss: 0.3762, Train Acc: 85.2251 - Val Loss: 0.3650, Val Acc: 86.1272
+Epoch 13/20 - Train Loss: 0.3535, Train Acc: 86.0611 - Val Loss: 0.3430, Val Acc: 87.5723
+Epoch 14/20 - Train Loss: 0.3378, Train Acc: 87.2830 - Val Loss: 0.2777, Val Acc: 89.4509
+Epoch 15/20 - Train Loss: 0.3268, Train Acc: 87.6206 - Val Loss: 0.3284, Val Acc: 88.2948
+Epoch 16/20 - Train Loss: 0.3154, Train Acc: 88.1350 - Val Loss: 0.2962, Val Acc: 88.7283
+Epoch 17/20 - Train Loss: 0.3038, Train Acc: 88.2154 - Val Loss: 0.2671, Val Acc: 90.3179
+Epoch 18/20 - Train Loss: 0.2911, Train Acc: 89.1961 - Val Loss: 0.2693, Val Acc: 89.7399
+Epoch 19/20 - Train Loss: 0.2873, Train Acc: 89.0193 - Val Loss: 0.2576, Val Acc: 89.5954
+Epoch 20/20 - Train Loss: 0.2709, Train Acc: 90.5145 - Val Loss: 0.2444, Val Acc: 91.6185
+Fold 1 Best Accuracy: 91.6185
+
+Training on Fold 2/10...
+Epoch 1/20 - Train Loss: 0.9915, Train Acc: 52.5563 - Val Loss: 0.8670, Val Acc: 56.0694
+Epoch 2/20 - Train Loss: 0.8544, Train Acc: 57.6206 - Val Loss: 0.7772, Val Acc: 64.3064
+Epoch 3/20 - Train Loss: 0.7848, Train Acc: 63.6656 - Val Loss: 0.6759, Val Acc: 71.9653
+Epoch 4/20 - Train Loss: 0.7270, Train Acc: 66.8006 - Val Loss: 0.5909, Val Acc: 77.0231
+Epoch 5/20 - Train Loss: 0.6804, Train Acc: 70.1125 - Val Loss: 0.6046, Val Acc: 77.1676
+Epoch 6/20 - Train Loss: 0.6106, Train Acc: 73.3280 - Val Loss: 0.5340, Val Acc: 79.4798
+Epoch 7/20 - Train Loss: 0.5411, Train Acc: 77.1704 - Val Loss: 0.4974, Val Acc: 79.1908
+Epoch 8/20 - Train Loss: 0.5008, Train Acc: 79.5498 - Val Loss: 0.4253, Val Acc: 84.9711
+Epoch 9/20 - Train Loss: 0.4636, Train Acc: 81.3344 - Val Loss: 0.3639, Val Acc: 88.2948
+Epoch 10/20 - Train Loss: 0.4112, Train Acc: 83.3923 - Val Loss: 0.3342, Val Acc: 88.8728
+Epoch 11/20 - Train Loss: 0.3694, Train Acc: 85.5305 - Val Loss: 0.3056, Val Acc: 88.2948
+Epoch 12/20 - Train Loss: 0.3648, Train Acc: 85.6913 - Val Loss: 0.3023, Val Acc: 88.4393
+Epoch 13/20 - Train Loss: 0.3399, Train Acc: 86.6238 - Val Loss: 0.2464, Val Acc: 91.3295
+Epoch 14/20 - Train Loss: 0.3189, Train Acc: 87.6849 - Val Loss: 0.2412, Val Acc: 91.1850
+Epoch 15/20 - Train Loss: 0.2996, Train Acc: 88.5531 - Val Loss: 0.2649, Val Acc: 91.3295
+Epoch 16/20 - Train Loss: 0.2848, Train Acc: 89.2283 - Val Loss: 0.2473, Val Acc: 91.3295
+Epoch 17/20 - Train Loss: 0.2681, Train Acc: 89.7267 - Val Loss: 0.2164, Val Acc: 92.0520
+Epoch 18/20 - Train Loss: 0.2648, Train Acc: 89.8714 - Val Loss: 0.2179, Val Acc: 93.2081
+Epoch 19/20 - Train Loss: 0.2526, Train Acc: 90.8842 - Val Loss: 0.1960, Val Acc: 92.3410
+Epoch 20/20 - Train Loss: 0.2472, Train Acc: 90.7395 - Val Loss: 0.2003, Val Acc: 93.7861
+Fold 2 Best Accuracy: 93.7861
+
+Training on Fold 3/10...
+Epoch 1/20 - Train Loss: 1.0495, Train Acc: 49.0757 - Val Loss: 0.9216, Val Acc: 56.2952
+Epoch 2/20 - Train Loss: 0.8780, Train Acc: 56.9683 - Val Loss: 0.9391, Val Acc: 53.1114
+Epoch 3/20 - Train Loss: 0.8042, Train Acc: 62.5784 - Val Loss: 0.7720, Val Acc: 67.4385
+Epoch 4/20 - Train Loss: 0.7394, Train Acc: 65.9862 - Val Loss: 0.7815, Val Acc: 59.1896
+Epoch 5/20 - Train Loss: 0.7221, Train Acc: 66.9507 - Val Loss: 0.6630, Val Acc: 72.0695
+Epoch 6/20 - Train Loss: 0.6837, Train Acc: 69.5065 - Val Loss: 0.7124, Val Acc: 70.3329
+Epoch 7/20 - Train Loss: 0.6542, Train Acc: 71.1943 - Val Loss: 0.6499, Val Acc: 72.7931
+Epoch 8/20 - Train Loss: 0.6012, Train Acc: 73.8788 - Val Loss: 0.5642, Val Acc: 77.4240
+Epoch 9/20 - Train Loss: 0.5510, Train Acc: 76.4990 - Val Loss: 0.5132, Val Acc: 79.4501
+Epoch 10/20 - Train Loss: 0.5198, Train Acc: 78.1546 - Val Loss: 0.5059, Val Acc: 79.8842
+Epoch 11/20 - Train Loss: 0.4795, Train Acc: 80.5337 - Val Loss: 0.4418, Val Acc: 84.0810
+Epoch 12/20 - Train Loss: 0.4297, Train Acc: 82.5751 - Val Loss: 0.3708, Val Acc: 86.6860
+Epoch 13/20 - Train Loss: 0.4034, Train Acc: 84.2630 - Val Loss: 0.4065, Val Acc: 84.6599
+Epoch 14/20 - Train Loss: 0.3748, Train Acc: 85.0989 - Val Loss: 0.3428, Val Acc: 87.5543
+Epoch 15/20 - Train Loss: 0.3555, Train Acc: 85.8704 - Val Loss: 0.3242, Val Acc: 88.5673
+Epoch 16/20 - Train Loss: 0.3353, Train Acc: 86.7706 - Val Loss: 0.3078, Val Acc: 89.8698
+Epoch 17/20 - Train Loss: 0.3227, Train Acc: 87.5261 - Val Loss: 0.2734, Val Acc: 91.7511
+Epoch 18/20 - Train Loss: 0.3090, Train Acc: 88.6996 - Val Loss: 0.2688, Val Acc: 90.1592
+Epoch 19/20 - Train Loss: 0.2882, Train Acc: 89.2140 - Val Loss: 2.7962, Val Acc: 46.1650
+Epoch 20/20 - Train Loss: 0.3531, Train Acc: 87.0600 - Val Loss: 0.2390, Val Acc: 92.4747
+Fold 3 Best Accuracy: 92.4747
+
+Training on Fold 4/10...
+Epoch 1/20 - Train Loss: 0.9650, Train Acc: 52.4674 - Val Loss: 0.8078, Val Acc: 60.6368
+Epoch 2/20 - Train Loss: 0.7941, Train Acc: 63.4142 - Val Loss: 0.7274, Val Acc: 67.4385
+Epoch 3/20 - Train Loss: 0.7288, Train Acc: 66.1630 - Val Loss: 0.7431, Val Acc: 66.1360
+Epoch 4/20 - Train Loss: 0.7011, Train Acc: 68.9600 - Val Loss: 0.6303, Val Acc: 69.1751
+Epoch 5/20 - Train Loss: 0.6412, Train Acc: 71.9016 - Val Loss: 0.5929, Val Acc: 72.7931
+Epoch 6/20 - Train Loss: 0.5931, Train Acc: 74.8915 - Val Loss: 0.5158, Val Acc: 78.0029
+Epoch 7/20 - Train Loss: 0.5398, Train Acc: 77.1580 - Val Loss: 0.4767, Val Acc: 80.1737
+Epoch 8/20 - Train Loss: 0.4941, Train Acc: 79.8907 - Val Loss: 0.4598, Val Acc: 81.4761
+Epoch 9/20 - Train Loss: 0.4408, Train Acc: 82.2215 - Val Loss: 0.4019, Val Acc: 83.6469
+Epoch 10/20 - Train Loss: 0.4170, Train Acc: 83.3467 - Val Loss: 0.3995, Val Acc: 86.1071
+Epoch 11/20 - Train Loss: 0.3874, Train Acc: 84.1665 - Val Loss: 0.3448, Val Acc: 87.8437
+Epoch 12/20 - Train Loss: 0.3377, Train Acc: 87.0117 - Val Loss: 0.3323, Val Acc: 88.1331
+Epoch 13/20 - Train Loss: 0.3397, Train Acc: 86.5938 - Val Loss: 0.2701, Val Acc: 91.4616
+Epoch 14/20 - Train Loss: 0.2968, Train Acc: 88.7960 - Val Loss: 0.2330, Val Acc: 92.0405
+Epoch 15/20 - Train Loss: 0.2887, Train Acc: 88.7960 - Val Loss: 0.2549, Val Acc: 91.8958
+Epoch 16/20 - Train Loss: 0.2757, Train Acc: 89.3908 - Val Loss: 0.2453, Val Acc: 91.3169
+Epoch 17/20 - Train Loss: 0.2721, Train Acc: 89.7123 - Val Loss: 0.2026, Val Acc: 93.3430
+Epoch 18/20 - Train Loss: 0.2438, Train Acc: 90.9018 - Val Loss: 0.2479, Val Acc: 91.1722
+Epoch 19/20 - Train Loss: 0.2789, Train Acc: 89.5837 - Val Loss: 0.2623, Val Acc: 91.1722
+Epoch 20/20 - Train Loss: 0.2243, Train Acc: 91.4322 - Val Loss: 0.2060, Val Acc: 93.7771
+Fold 4 Best Accuracy: 93.7771
+
+Training on Fold 5/10...
+Epoch 1/20 - Train Loss: 0.9964, Train Acc: 52.0817 - Val Loss: 0.7839, Val Acc: 64.5441
+Epoch 2/20 - Train Loss: 0.7909, Train Acc: 63.1249 - Val Loss: 0.6910, Val Acc: 67.8726
+Epoch 3/20 - Train Loss: 0.7261, Train Acc: 67.5454 - Val Loss: 0.6216, Val Acc: 70.9117
+Epoch 4/20 - Train Loss: 0.6777, Train Acc: 70.1495 - Val Loss: 0.7858, Val Acc: 61.0709
+Epoch 5/20 - Train Loss: 0.6294, Train Acc: 72.5446 - Val Loss: 0.5958, Val Acc: 75.3980
+Epoch 6/20 - Train Loss: 0.5827, Train Acc: 74.6504 - Val Loss: 0.5620, Val Acc: 76.2663
+Epoch 7/20 - Train Loss: 0.5382, Train Acc: 77.3027 - Val Loss: 0.4515, Val Acc: 81.1867
+Epoch 8/20 - Train Loss: 0.4793, Train Acc: 81.0481 - Val Loss: 0.4349, Val Acc: 82.6339
+Epoch 9/20 - Train Loss: 0.4396, Train Acc: 82.6716 - Val Loss: 0.3812, Val Acc: 83.9363
+Epoch 10/20 - Train Loss: 0.4153, Train Acc: 83.0574 - Val Loss: 0.3682, Val Acc: 86.2518
+Epoch 11/20 - Train Loss: 0.3710, Train Acc: 85.3721 - Val Loss: 0.2974, Val Acc: 88.8567
+Epoch 12/20 - Train Loss: 0.3522, Train Acc: 86.1437 - Val Loss: 0.3326, Val Acc: 87.8437
+Epoch 13/20 - Train Loss: 0.3384, Train Acc: 87.2046 - Val Loss: 0.2990, Val Acc: 88.5673
+Epoch 14/20 - Train Loss: 0.3006, Train Acc: 88.6513 - Val Loss: 0.2772, Val Acc: 89.0014
+Epoch 15/20 - Train Loss: 0.2941, Train Acc: 88.7799 - Val Loss: 0.2686, Val Acc: 91.1722
+Epoch 16/20 - Train Loss: 0.2711, Train Acc: 89.7605 - Val Loss: 0.2536, Val Acc: 91.7511
+Epoch 17/20 - Train Loss: 0.2602, Train Acc: 90.1302 - Val Loss: 0.2630, Val Acc: 90.5933
+Epoch 18/20 - Train Loss: 0.2775, Train Acc: 89.0693 - Val Loss: 0.2278, Val Acc: 91.6064
+Epoch 19/20 - Train Loss: 0.2332, Train Acc: 91.2394 - Val Loss: 0.2377, Val Acc: 90.4486
+Epoch 20/20 - Train Loss: 0.2458, Train Acc: 90.8696 - Val Loss: 0.2539, Val Acc: 91.0275
+Fold 5 Best Accuracy: 91.7511
+
+Training on Fold 6/10...
+Epoch 1/20 - Train Loss: 0.9531, Train Acc: 53.3194 - Val Loss: 0.8197, Val Acc: 58.9001
+Epoch 2/20 - Train Loss: 0.8024, Train Acc: 63.0285 - Val Loss: 0.7467, Val Acc: 63.3864
+Epoch 3/20 - Train Loss: 0.7365, Train Acc: 65.7290 - Val Loss: 0.8531, Val Acc: 54.9928
+Epoch 4/20 - Train Loss: 0.7006, Train Acc: 68.0919 - Val Loss: 0.6531, Val Acc: 70.6223
+Epoch 5/20 - Train Loss: 0.6431, Train Acc: 71.6927 - Val Loss: 0.5950, Val Acc: 73.0825
+Epoch 6/20 - Train Loss: 0.5848, Train Acc: 74.8915 - Val Loss: 0.5398, Val Acc: 79.0159
+Epoch 7/20 - Train Loss: 0.5283, Train Acc: 77.2545 - Val Loss: 0.5701, Val Acc: 78.8712
+Epoch 8/20 - Train Loss: 0.5073, Train Acc: 79.1834 - Val Loss: 0.4973, Val Acc: 81.4761
+Epoch 9/20 - Train Loss: 0.4490, Train Acc: 81.9000 - Val Loss: 0.4159, Val Acc: 84.8046
+Epoch 10/20 - Train Loss: 0.4135, Train Acc: 83.6039 - Val Loss: 0.3782, Val Acc: 83.9363
+Epoch 11/20 - Train Loss: 0.3691, Train Acc: 85.6775 - Val Loss: 0.4013, Val Acc: 85.2388
+Epoch 12/20 - Train Loss: 0.3271, Train Acc: 87.3493 - Val Loss: 0.3234, Val Acc: 87.9884
+Epoch 13/20 - Train Loss: 0.3265, Train Acc: 87.3493 - Val Loss: 0.3266, Val Acc: 86.9754
+Epoch 14/20 - Train Loss: 0.2916, Train Acc: 88.7478 - Val Loss: 0.4164, Val Acc: 85.3835
+Epoch 15/20 - Train Loss: 0.2773, Train Acc: 89.3908 - Val Loss: 0.2908, Val Acc: 89.1462
+Epoch 16/20 - Train Loss: 0.2627, Train Acc: 90.2749 - Val Loss: 0.2717, Val Acc: 90.3039
+Epoch 17/20 - Train Loss: 0.2840, Train Acc: 88.5067 - Val Loss: 0.2737, Val Acc: 90.4486
+Epoch 18/20 - Train Loss: 0.2456, Train Acc: 90.6767 - Val Loss: 0.2560, Val Acc: 91.1722
+Epoch 19/20 - Train Loss: 0.2286, Train Acc: 91.3197 - Val Loss: 0.2430, Val Acc: 91.7511
+Epoch 20/20 - Train Loss: 0.2406, Train Acc: 91.0304 - Val Loss: 0.2428, Val Acc: 91.0275
+Fold 6 Best Accuracy: 91.7511
+
+Training on Fold 7/10...
+Epoch 1/20 - Train Loss: 0.9669, Train Acc: 53.2230 - Val Loss: 0.9129, Val Acc: 53.1114
+Epoch 2/20 - Train Loss: 0.8245, Train Acc: 60.7459 - Val Loss: 0.8093, Val Acc: 58.3213
+Epoch 3/20 - Train Loss: 0.7650, Train Acc: 63.9447 - Val Loss: 0.7041, Val Acc: 71.7800
+Epoch 4/20 - Train Loss: 0.7213, Train Acc: 67.2561 - Val Loss: 0.7242, Val Acc: 66.7149
+Epoch 5/20 - Train Loss: 0.6704, Train Acc: 70.9532 - Val Loss: 0.6110, Val Acc: 74.6744
+Epoch 6/20 - Train Loss: 0.6237, Train Acc: 73.3001 - Val Loss: 0.5536, Val Acc: 76.9899
+Epoch 7/20 - Train Loss: 0.5817, Train Acc: 75.4380 - Val Loss: 0.4837, Val Acc: 81.3314
+Epoch 8/20 - Train Loss: 0.5317, Train Acc: 77.8010 - Val Loss: 0.4212, Val Acc: 85.0941
+Epoch 9/20 - Train Loss: 0.4660, Train Acc: 80.9355 - Val Loss: 0.3977, Val Acc: 84.6599
+Epoch 10/20 - Train Loss: 0.4246, Train Acc: 82.9770 - Val Loss: 0.3968, Val Acc: 82.4891
+Epoch 11/20 - Train Loss: 0.3829, Train Acc: 85.3561 - Val Loss: 0.3603, Val Acc: 87.4096
+Epoch 12/20 - Train Loss: 0.3590, Train Acc: 85.9026 - Val Loss: 0.2883, Val Acc: 90.5933
+Epoch 13/20 - Train Loss: 0.3260, Train Acc: 87.5100 - Val Loss: 0.2305, Val Acc: 92.7641
+Epoch 14/20 - Train Loss: 0.2961, Train Acc: 88.6674 - Val Loss: 0.2783, Val Acc: 88.8567
+Epoch 15/20 - Train Loss: 0.2939, Train Acc: 89.1657 - Val Loss: 0.2272, Val Acc: 91.3169
+Epoch 16/20 - Train Loss: 0.2669, Train Acc: 89.9212 - Val Loss: 0.2405, Val Acc: 91.1722
+Epoch 17/20 - Train Loss: 0.2473, Train Acc: 90.8214 - Val Loss: 0.2057, Val Acc: 91.8958
+Epoch 18/20 - Train Loss: 0.2380, Train Acc: 90.9339 - Val Loss: 0.2050, Val Acc: 92.7641
+Early stopping at epoch 18
+Fold 7 Best Accuracy: 92.7641
+
+Training on Fold 8/10...
+Epoch 1/20 - Train Loss: 1.0198, Train Acc: 51.6155 - Val Loss: 0.8191, Val Acc: 57.3082
+Epoch 2/20 - Train Loss: 0.8134, Train Acc: 61.0031 - Val Loss: 0.7247, Val Acc: 64.2547
+Epoch 3/20 - Train Loss: 0.7332, Train Acc: 67.1114 - Val Loss: 0.6807, Val Acc: 68.7410
+Epoch 4/20 - Train Loss: 0.6843, Train Acc: 69.3458 - Val Loss: 0.6113, Val Acc: 72.0695
+Epoch 5/20 - Train Loss: 0.5927, Train Acc: 75.0844 - Val Loss: 0.6398, Val Acc: 68.3068
+Epoch 6/20 - Train Loss: 0.5603, Train Acc: 77.3188 - Val Loss: 0.4970, Val Acc: 81.6208
+Epoch 7/20 - Train Loss: 0.4932, Train Acc: 80.7426 - Val Loss: 0.4164, Val Acc: 83.0680
+Epoch 8/20 - Train Loss: 0.4585, Train Acc: 81.4982 - Val Loss: 0.4231, Val Acc: 84.5152
+Epoch 9/20 - Train Loss: 0.4010, Train Acc: 83.8450 - Val Loss: 0.3922, Val Acc: 85.3835
+Epoch 10/20 - Train Loss: 0.3726, Train Acc: 85.5489 - Val Loss: 0.3647, Val Acc: 87.2648
+Epoch 11/20 - Train Loss: 0.3589, Train Acc: 86.2080 - Val Loss: 0.3285, Val Acc: 88.4226
+Epoch 12/20 - Train Loss: 0.3096, Train Acc: 87.7190 - Val Loss: 0.2637, Val Acc: 89.8698
+Epoch 13/20 - Train Loss: 0.2938, Train Acc: 88.5227 - Val Loss: 0.2767, Val Acc: 89.5803
+Epoch 14/20 - Train Loss: 0.2769, Train Acc: 89.5997 - Val Loss: 0.2725, Val Acc: 91.3169
+Epoch 15/20 - Train Loss: 0.2794, Train Acc: 89.2783 - Val Loss: 0.2603, Val Acc: 90.7381
+Epoch 16/20 - Train Loss: 0.2565, Train Acc: 90.4035 - Val Loss: 0.2548, Val Acc: 91.7511
+Epoch 17/20 - Train Loss: 0.2251, Train Acc: 91.5126 - Val Loss: 0.2270, Val Acc: 91.7511
+Epoch 18/20 - Train Loss: 0.2347, Train Acc: 91.2394 - Val Loss: 0.2485, Val Acc: 90.3039
+Epoch 19/20 - Train Loss: 0.2502, Train Acc: 90.9982 - Val Loss: 0.2386, Val Acc: 92.0405
+Epoch 20/20 - Train Loss: 0.2250, Train Acc: 91.6412 - Val Loss: 0.2362, Val Acc: 91.7511
+Fold 8 Best Accuracy: 92.0405
+
+Training on Fold 9/10...
+Epoch 1/20 - Train Loss: 0.9487, Train Acc: 53.8016 - Val Loss: 0.7521, Val Acc: 63.2417
+Epoch 2/20 - Train Loss: 0.7743, Train Acc: 64.1376 - Val Loss: 0.7053, Val Acc: 66.2808
+Epoch 3/20 - Train Loss: 0.7089, Train Acc: 68.0598 - Val Loss: 0.6418, Val Acc: 73.0825
+Epoch 4/20 - Train Loss: 0.6642, Train Acc: 70.7282 - Val Loss: 0.6318, Val Acc: 71.4906
+Epoch 5/20 - Train Loss: 0.6392, Train Acc: 71.9981 - Val Loss: 0.5705, Val Acc: 76.9899
+Epoch 6/20 - Train Loss: 0.5690, Train Acc: 75.8077 - Val Loss: 0.5270, Val Acc: 79.4501
+Epoch 7/20 - Train Loss: 0.5415, Train Acc: 77.6403 - Val Loss: 0.4642, Val Acc: 79.3054
+Epoch 8/20 - Train Loss: 0.4708, Train Acc: 81.5142 - Val Loss: 0.4021, Val Acc: 84.6599
+Epoch 9/20 - Train Loss: 0.4365, Train Acc: 82.9288 - Val Loss: 0.4157, Val Acc: 83.2127
+Epoch 10/20 - Train Loss: 0.3725, Train Acc: 86.0633 - Val Loss: 0.3146, Val Acc: 89.1462
+Epoch 11/20 - Train Loss: 0.3458, Train Acc: 86.7706 - Val Loss: 0.2873, Val Acc: 91.3169
+Epoch 12/20 - Train Loss: 0.3486, Train Acc: 86.3688 - Val Loss: 0.2919, Val Acc: 89.2909
+Epoch 13/20 - Train Loss: 0.3328, Train Acc: 87.5100 - Val Loss: 0.2821, Val Acc: 90.0145
+Epoch 14/20 - Train Loss: 0.2701, Train Acc: 90.0498 - Val Loss: 0.2729, Val Acc: 89.2909
+Epoch 15/20 - Train Loss: 0.2653, Train Acc: 90.0177 - Val Loss: 0.2206, Val Acc: 93.3430
+Epoch 16/20 - Train Loss: 0.2542, Train Acc: 90.6767 - Val Loss: 0.2106, Val Acc: 92.0405
+Epoch 17/20 - Train Loss: 0.2660, Train Acc: 89.6158 - Val Loss: 0.2704, Val Acc: 89.1462
+Epoch 18/20 - Train Loss: 0.2382, Train Acc: 91.0947 - Val Loss: 0.2495, Val Acc: 91.0275
+Epoch 19/20 - Train Loss: 0.2568, Train Acc: 90.0498 - Val Loss: 0.2135, Val Acc: 91.7511
+Epoch 20/20 - Train Loss: 0.2273, Train Acc: 91.7055 - Val Loss: 0.2205, Val Acc: 92.6194
+Early stopping at epoch 20
+Fold 9 Best Accuracy: 93.3430
+
+Training on Fold 10/10...
+Epoch 1/20 - Train Loss: 0.9773, Train Acc: 52.5157 - Val Loss: 0.8106, Val Acc: 60.0579
+Epoch 2/20 - Train Loss: 0.7871, Train Acc: 63.5750 - Val Loss: 0.8135, Val Acc: 62.0839
+Epoch 3/20 - Train Loss: 0.7550, Train Acc: 66.0023 - Val Loss: 0.7285, Val Acc: 68.3068
+Epoch 4/20 - Train Loss: 0.7117, Train Acc: 68.6224 - Val Loss: 0.6540, Val Acc: 73.5166
+Epoch 5/20 - Train Loss: 0.6878, Train Acc: 69.7959 - Val Loss: 0.6303, Val Acc: 72.2142
+Epoch 6/20 - Train Loss: 0.6587, Train Acc: 70.8889 - Val Loss: 0.6097, Val Acc: 72.3589
+Epoch 7/20 - Train Loss: 0.6201, Train Acc: 73.7984 - Val Loss: 0.6340, Val Acc: 74.8191
+Epoch 8/20 - Train Loss: 0.5710, Train Acc: 75.5184 - Val Loss: 0.5364, Val Acc: 78.1476
+Epoch 9/20 - Train Loss: 0.5292, Train Acc: 78.4922 - Val Loss: 0.4789, Val Acc: 80.6078
+Epoch 10/20 - Train Loss: 0.4709, Train Acc: 80.5980 - Val Loss: 0.4700, Val Acc: 78.2923
+Epoch 11/20 - Train Loss: 0.4377, Train Acc: 82.5751 - Val Loss: 0.4048, Val Acc: 87.5543
+Epoch 12/20 - Train Loss: 0.4044, Train Acc: 84.0219 - Val Loss: 0.3457, Val Acc: 87.2648
+Epoch 13/20 - Train Loss: 0.3459, Train Acc: 87.0278 - Val Loss: 0.2948, Val Acc: 88.8567
+Epoch 14/20 - Train Loss: 0.3147, Train Acc: 87.7833 - Val Loss: 0.2662, Val Acc: 90.3039
+Epoch 15/20 - Train Loss: 0.2983, Train Acc: 88.8764 - Val Loss: 0.2726, Val Acc: 90.1592
+Epoch 16/20 - Train Loss: 0.2960, Train Acc: 88.6996 - Val Loss: 0.2566, Val Acc: 90.5933
+Epoch 17/20 - Train Loss: 0.2651, Train Acc: 90.4517 - Val Loss: 0.2805, Val Acc: 89.2909
+Epoch 18/20 - Train Loss: 0.2503, Train Acc: 90.5964 - Val Loss: 0.2553, Val Acc: 90.7381
+Epoch 19/20 - Train Loss: 0.2486, Train Acc: 91.0625 - Val Loss: 0.2677, Val Acc: 89.5803
+Epoch 20/20 - Train Loss: 0.2585, Train Acc: 90.2427 - Val Loss: 0.2017, Val Acc: 91.8958
+Fold 10 Best Accuracy: 91.8958
+
+Final Cross-Validation Accuracy:
+Mean Accuracy: 92.5202
+Standard Deviation: 0.8085

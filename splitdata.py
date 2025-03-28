@@ -3,11 +3,11 @@ import shutil
 import random
 
 # Paths
-data_dir = "raw"
-output_dir = "raw_splitted"
+data_dir = "final_data_set_no_bg"
+output_dir = "final_data_set_no_bg_splitted"
 
 # Classes
-categories = ["Ak1n02 bg-rem test_eren First_Degree_removed", "Ak1n02 bg-rem test_eren Second_Degree_removed", "Ak1n02 bg-rem test_eren Third_Degree_removed"]
+categories = ["first_degree", "second_degree", "third_degree"]
 
 # Split ratios
 train_ratio, val_ratio, test_ratio = 0.7, 0.15, 0.15

@@ -110,6 +110,10 @@ def decide_best_method(output_u2net, output_rembg, original_image,image_path, mi
 
 def process_image(image_path):
     original_image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)  # Load the original image
+    if original_image is None:
+        raise FileNotFoundError(
+            f"Image at path {image_path} could not be loaded. Please check the file path and integrity.")
+
     original_image = cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB
 
     # Remove background using U-2-Net and rembg
@@ -124,7 +128,6 @@ def process_image(image_path):
 
     print(f"Using method: {best_method}")
     return best_output_with_white_bg
-
 
 # Replace transparent or background pixels with a white background
 def replace_with_white_background(image):
@@ -165,7 +168,7 @@ def process_and_save(image_path, output_path):
     Image.fromarray(processed_image).save(output_path, "PNG")
 
 
-# Process all images in a directory
+# Process all images in a directory and save them in the corresponding output directory
 def process_directory(input_dir, output_dir):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -177,9 +180,16 @@ def process_directory(input_dir, output_dir):
             output_path = os.path.join(output_dir, os.path.splitext(filename)[0] + ".png")
             process_and_save(input_path, output_path)
 
-
-# Example Usage
+# Process all subdirectories (burn degrees)
 if __name__ == "__main__":
-    input_folder = "Ak1n02 bg-rem test_eren First_Degree"
-    output_folder = "Ak1n02 bg-rem test_eren First_Degree_removed"
-    process_directory(input_folder, output_folder)
+    input_base = "test_akin"
+    output_base = "test_akin_removed"
+
+    burn_degrees = ["first_degree", "second_degree", "third_degree"]
+
+    for degree in burn_degrees:
+        input_folder = os.path.join(input_base, degree)
+        output_folder = os.path.join(output_base, degree)
+        process_directory(input_folder, output_folder)
+
+    print("Processing completed.")

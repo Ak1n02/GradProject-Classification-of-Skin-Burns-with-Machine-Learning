@@ -2,8 +2,8 @@
 
 import tensorflow as tf
 from tensorflow.keras import layers, models
-
-
+print(tf.__version__)
+print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 # Define the CNN Model
 def create_model():
     model = models.Sequential([
@@ -25,15 +25,15 @@ def create_model():
 # Define your training function
 def train_model():
     # Load the dataset
-    train_ds = tf.keras.utils.image_dataset_from_directory("raw_splitted/train", image_size=(224, 224), batch_size=32)
-    val_ds = tf.keras.utils.image_dataset_from_directory("raw_splitted/val", image_size=(224, 224), batch_size=32)
+    train_ds = tf.keras.utils.image_dataset_from_directory("final_data_set_no_bg_splitted/train", image_size=(224, 224), batch_size=32)
+    val_ds = tf.keras.utils.image_dataset_from_directory("final_data_set_no_bg_splitted/val", image_size=(224, 224), batch_size=32)
 
     # Create and train the model
     model = create_model()
     model.fit(train_ds, validation_data=val_ds, epochs=20)
 
     # Save the trained model
-    model.save("burn_classification_cnn.keras")
+    model.save("burn_classification_cnn_final_data_set_no_bg_splitted.keras")
 
 # Ensure training happens only when running the script directly
 if __name__ == "__main__":

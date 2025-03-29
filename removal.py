@@ -30,25 +30,40 @@ def postprocess(output, orig_size):
     return mask
 
 
-# Remove background using U-2-Net
 def remove_background_u2net(image_path):
+    # Load the image (may be 3-channel for JPG or 4-channel for PNG)
     image = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
+
+    # If image has 4 channels (likely PNG), convert to 3-channel BGR
+    if image.shape[2] == 4:
+        image = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR)
+
     orig_h, orig_w = image.shape[:2]
 
     preprocessed_img, orig_size = preprocess(image_path)
     input_name = session.get_inputs()[0].name
     output_name = session.get_outputs()[0].name
     output = session.run([output_name], {input_name: preprocessed_img})[0]
+
+    # Postprocess to obtain a binary mask (this returns a 2D array)
     mask = postprocess(output, orig_size)
 
-    mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
-    result = cv2.bitwise_and(image, mask)
+    # Convert the mask to 3-channel BGR for bitwise operation
+    mask_bgr = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
+    result = cv2.bitwise_and(image, mask_bgr)
+
+    # Convert result to BGRA so that we can set an alpha channel
     result_rgba = cv2.cvtColor(result, cv2.COLOR_BGR2BGRA)
-    result_rgba[:, :, 3] = mask[:, :, 0]  # Alpha channel from mask
 
-    # Convert BGR to RGB
+    # Use the original mask for the alpha channel.
+    # If mask is 2D, use it directly; otherwise, take its first channel.
+    if mask.ndim == 2:
+        result_rgba[:, :, 3] = mask
+    else:
+        result_rgba[:, :, 3] = mask[:, :, 0]
+
+    # Convert the final image from BGRA to RGBA for consistency
     result_rgb = cv2.cvtColor(result_rgba, cv2.COLOR_BGRA2RGBA)
-
     return result_rgb
 
 

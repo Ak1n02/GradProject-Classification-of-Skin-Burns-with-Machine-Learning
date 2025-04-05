@@ -105,7 +105,7 @@ def process_image(image_path):
     V_normalized = V / 255.0
 
     # Identify dark burn regions by low V and low S
-    dark_mask = (V_normalized < 0.4) & (S_normalized < 0.5)  # Adjust thresholds if necessary
+    dark_mask = (V_normalized < 0.31) & (S_normalized < 0.35)  # Adjust thresholds if necessary
 
     # **Step 7: Combine the burn regions**
     final_burn_mask = np.zeros_like(fixed_labels)  # Start with a mask of zeros
@@ -135,7 +135,7 @@ def process_dataset(input_directory, output_directory):
     for root, dirs, files in os.walk(input_directory):
         for filename in files:
             # Check if file is an image
-            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.tif', '.tiff')):
+            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.tif', '.tiff', '.webp')):
                 # Construct full input and output paths
                 input_path = os.path.join(root, filename)
 
@@ -162,9 +162,8 @@ def process_dataset(input_directory, output_directory):
 
 def main():
     # Define input and output directories
-    input_directory = 'test_akin_removed'  # Root directory containing images and subdirectories
-    output_directory = 'test_akin_removed_onlyburn'  # Output root directory
-
+    input_directory = "test_yanik_yeni_removed"
+    output_directory = "test_yanik_yeni_removed_processed"
     # Process the entire dataset
     process_dataset(input_directory, output_directory)
 

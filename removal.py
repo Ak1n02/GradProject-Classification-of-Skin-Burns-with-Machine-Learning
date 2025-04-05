@@ -8,8 +8,9 @@ from skimage.metrics import structural_similarity as ssim
 
 # Load ONNX model
 model_path = "u2net_human_seg.onnx"
-session = ort.InferenceSession(model_path, providers=["CPUExecutionProvider"])
+session = ort.InferenceSession(model_path, providers=["CUDAExecutionProvider"])
 
+print(session.get_providers())
 
 # Preprocess image
 def preprocess(image_path):
@@ -110,8 +111,7 @@ def decide_best_method(output_u2net, output_rembg, original_image,image_path, mi
 
     # If the foreground proportion is too low, return the original image
     if needs_background_removal(image_path) and score_foreground < min_foreground_threshold:
-        print("Skipping background removal: Foreground too small")
-        return original_image, "Original"
+        return original_image, "Skipping background removal: Foreground too small"
 
     # Compute the weighted scores
     u2net_score = (score_ssim + score_foreground + score_edge + score_hist) / 4
@@ -188,7 +188,7 @@ def process_directory(input_dir, output_dir):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    image_extensions = (".jpg", ".jpeg", ".png")
+    image_extensions = (".jpg", ".jpeg", ".png",".webp")
     for filename in os.listdir(input_dir):
         if filename.lower().endswith(image_extensions):
             input_path = os.path.join(input_dir, filename)
@@ -197,10 +197,10 @@ def process_directory(input_dir, output_dir):
 
 # Process all subdirectories (burn degrees)
 if __name__ == "__main__":
-    input_base = "test_akin"
-    output_base = "test_akin_removed"
+    input_base = "test_yanik_yeni"
+    output_base =  "test_yanik_yeni_removed"
 
-    burn_degrees = ["first_degree", "second_degree", "third_degree"]
+    burn_degrees = ["first_degree","second_degree", "third_degree"]
 
     for degree in burn_degrees:
         input_folder = os.path.join(input_base, degree)

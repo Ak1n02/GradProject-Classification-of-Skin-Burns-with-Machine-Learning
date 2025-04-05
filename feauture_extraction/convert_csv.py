@@ -80,7 +80,7 @@ def collect_degrees(folder_paths, type_kurtosis, type_skewness):
 
 
 def convert_to_csv(path, file_name, feature_type, type_number):
-    labels = {'hue': ('Hue Mean', 'Hue Std'), 'kurtosis': ('Kurtosis A', 'Kurtosis B'), 'skewness': ('Skewness A', 'Skewness B'), 'hsv_hue': ('Hue Mean', 'Hue Std'), 'saturation': ('Saturation Mean', 'Saturation Std'), 'value': ('Value Mean', 'Value Std')}
+    labels = {'hue': ('Hue Mean', 'Hue Std'), 'kurtosis': ('Kurtosis A', 'Kurtosis B'), 'skewness': ('Skewness A', 'Skewness B'), 'hsv_hue': ('HSV_Hue Mean', 'HSV_Hue Std'), 'saturation': ('Saturation Mean', 'Saturation Std'), 'value': ('Value Mean', 'Value Std')}
     data = []
     with open(path, 'r') as file:
         for line in file:
@@ -114,7 +114,7 @@ def arrange_folders():
     folder_paths = ['../Dataset_Test_Eren/Graphs/Hue', '../Dataset_Test_Eren/Graphs/Kurtosis', '../Dataset_Test_Eren/Graphs/Skewness', '../Dataset_Test_Eren/Graphs/HSV/Hue', '../Dataset_Test_Eren/Graphs/HSV/Saturation', '../Dataset_Test_Eren/Graphs/HSV/Value']
     feature_types = ['hue', 'kurtosis', 'skewness', 'hsv_hue', 'saturation', 'value']
     for index, folder_path in enumerate(folder_paths):
-        if index == 0:
+        if index == 0 or index == 3 or index == 4 or index == 5:
             for file_name in os.listdir(folder_path):
                 if file_name.endswith('.txt'):
                     convert_to_csv(f'{folder_path}/{file_name}', file_name, feature_types[index], 0)
@@ -130,23 +130,11 @@ def arrange_folders():
                 for file_name in os.listdir(f'{folder_path}/{folder}'):
                     if file_name.endswith('.txt'):
                         convert_to_csv(f'{folder_path}/{folder}/{file_name}', file_name, feature_types[index], 1 if inner_index == 0 else 2)
-        elif index == 3:
-            for file_name in os.listdir(folder_path):
-                if file_name.endswith('.txt'):
-                    convert_to_csv(f'{folder_path}/{file_name}', file_name, feature_types[index], 0)
-        elif index == 4:
-            for file_name in os.listdir(folder_path):
-                if file_name.endswith('.txt'):
-                    convert_to_csv(f'{folder_path}/{file_name}', file_name, feature_types[index], 0)
-        elif index == 5:
-            for file_name in os.listdir(folder_path):
-                if file_name.endswith('.txt'):
-                    convert_to_csv(f'{folder_path}/{file_name}', file_name, feature_types[index], 0)
 
 
 if __name__ == '__main__':
-    folders = ['../Dataset_Test_Eren/Graphs/Hue', '../Dataset_Test_Eren/Graphs/Kurtosis', '../Dataset_Test_Eren/Graphs/Skewness', '../Dataset_Test_Eren/Graphs/HSV/Saturation', '../Dataset_Test_Eren/Graphs/HSV/Value']
-    features_types = ['hue', 'kurtosis', 'skewness', 'hsv_saturation', 'hsv_value']
+    folders = ['../Dataset_Test_Eren/Graphs/Hue', '../Dataset_Test_Eren/Graphs/Kurtosis', '../Dataset_Test_Eren/Graphs/Skewness', '../Dataset_Test_Eren/Graphs/HSV/Hue', '../Dataset_Test_Eren/Graphs/HSV/Saturation', '../Dataset_Test_Eren/Graphs/HSV/Value']
+    features_types = ['hue', 'kurtosis', 'skewness', 'hsv_hue', 'hsv_saturation', 'hsv_value']
 #    collect_degrees(folders, 2, 2)
-    collect_all(folders, features_types, 2, 2)
+#    collect_all(folders, features_types, 2, 2)
 #    arrange_folders()

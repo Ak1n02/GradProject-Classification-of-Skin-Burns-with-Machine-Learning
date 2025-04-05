@@ -17,7 +17,7 @@ def get_hsv_features(folder_index, img):
         hsv_img = cv.cvtColor(img, cv.COLOR_BGR2HSV)
         h, s, v = cv.split(hsv_img)
 
-        mask = ~((h == 0) & (s == 0) & (v == 0))
+        mask = ~((h == 0) & (s == 0) & (v == 255))
         h_valid, s_valid, v_valid = h[mask], s[mask], v[mask]
         h_valid, s_valid, v_valid = normalize(h_valid), normalize(s_valid), normalize(v_valid) # normalize
 
@@ -26,7 +26,7 @@ def get_hsv_features(folder_index, img):
         for index, file in enumerate(all_files[folder_index]):
             if index == 0:
                 with open(file, 'a') as f:
-                    f.write(f'Degree: {folder_index + 1}, Hue Mean: {h_mean:.2f}, Hue Std: {h_std:.2f}\n')
+                    f.write(f'Degree: {folder_index + 1}, HSV_Hue Mean: {h_mean:.2f}, HSV_Hue Std: {h_std:.2f}\n')
             elif index == 1:
                 with open(file, 'a') as f:
                     f.write(f'Degree: {folder_index + 1}, Saturation Mean: {s_mean:.2f}, Saturation Std: {s_std:.2f}\n')
@@ -34,24 +34,21 @@ def get_hsv_features(folder_index, img):
                 with open(file, 'a') as f:
                     f.write(f'Degree: {folder_index + 1}, Value Mean: {v_mean:.2f}, Value Std: {v_std:.2f}\n')
 
-        print(f'Degree: {folder_index + 1}, Hue Mean: {h_mean:.2f}, Hue Std: {h_std:.2f}, Saturation Mean: {s_mean:.2f}, Saturation Std: {s_std:.2f}, Value Mean: {v_mean:.2f}, Value Std: {v_std:.2f}')
-        return h_mean, h_std, s_mean, s_std, v_mean, v_std
-
 
 def plot(folder_index, folder_path):
-    x_axis = []  # x-axis
-    feature_data = []  # y-axis
-    labels = {'hsv': ('Hue Mean', 'Hue Std', 'Saturation Mean', 'Saturation Std', 'Value Mean', 'Value Std')}
-    colors = {'hsv': ('b', 'g')}
+#    x_axis = []  # x-axis
+#    feature_data = []  # y-axis
+#    labels = {'hsv': ('Hue Mean', 'Hue Std', 'Saturation Mean', 'Saturation Std', 'Value Mean', 'Value Std')}
+#    colors = {'hsv': ('b', 'g')}
 
     for index, filename in enumerate(os.listdir(folder_path)):
-        if (filename.endswith(".jpg") or filename.endswith(".png")) and filename.startswith('burn'):
+        if filename.endswith(".jpg") or filename.endswith(".png"):
             image_path = os.path.join(folder_path, filename)
             img = cv.imread(image_path, cv.COLOR_BGR2RGB)
-            data = get_hsv_features(folder_index, img)  # Assuming this function returns the feature data
-            feature_data.append(data)
-            x_axis.append(index + 1)
-
+            get_hsv_features(folder_index, img)  # Assuming this function returns the feature data
+#            feature_data.append(data)
+#            x_axis.append(index + 1)
+"""
     # Transpose so that each feature is in a separate list
     feature_data = np.array(feature_data).T
 
@@ -78,10 +75,10 @@ def plot(folder_index, folder_path):
         ax.legend()
 
         plt.tight_layout()
-        plt.show()
+        plt.show() """
 
 def main():
-    folder_paths = ['../Dataset_Test_Eren/FirstDegreeSegmented', '../Dataset_Test_Eren/SecondDegreeSegmented', '../Dataset_Test_Eren/ThirdDegreeSegmented']
+    folder_paths = ['../new_final_preprocessed_data_set/first_degree', '../new_final_preprocessed_data_set/second_degree', '../new_final_preprocessed_data_set/third_degree']
     for index, folder_path in enumerate(folder_paths):
         plot(index, folder_path)
 

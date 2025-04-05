@@ -40,18 +40,8 @@ def augment_image(image):
         cv2.flip(image, 1),  # Flip horizontally
         cv2.flip(image, 0),  # Flip vertically
         cv2.flip(image, -1),  # Flip both axes
-        adjust_brightness(image, 1.2),  # Increase brightness
         adjust_brightness(image, 0.8),  # Decrease brightness
-        adjust_contrast(image, 1.5),  # Increase contrast
-        adjust_contrast(image, 0.5),  # Decrease contrast
-        add_gaussian_blur(image, 3),  # Gaussian blur
-        add_gaussian_blur(image, 5),  # Stronger Gaussian blur
         add_salt_and_pepper_noise(image, 0.02, 0.02),  # Salt & pepper noise
-        add_salt_and_pepper_noise(image, 0.05, 0.05),  # More noise
-        cv2.GaussianBlur(cv2.flip(image, 1), (3, 3), 0),  # Flip + Blur
-        adjust_brightness(cv2.flip(image, 0), 1.2),  # Flip + Brightness Increase
-        adjust_contrast(cv2.flip(image, -1), 1.5),  # Flip + Contrast Increase
-        add_salt_and_pepper_noise(cv2.flip(image, 1), 0.02, 0.02)  # Flip + Noise
     ]
 
     return augmented_images
@@ -97,6 +87,7 @@ def augment_dataset(dataset_dir, save_dir):
 
 
 # Example usage
-dataset_dir = 'final_data_set_no_bg'  # Path to your dataset
-save_dir = 'final_data_set_no_bg_augmented'  # Path to save the augmented images
+dataset_dir = "enson_removed_preprocessed"
+save_dir = "enson_removed_preprocessed_augmented"
+
 augment_dataset(dataset_dir, save_dir)

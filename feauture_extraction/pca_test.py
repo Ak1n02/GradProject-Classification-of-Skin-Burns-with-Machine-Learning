@@ -12,12 +12,12 @@ def create_dataset(original_data_set, top_features):
 
     # Merge labels with selected features
     new_dataset = pd.concat([labels, selected_features], axis=1)
-    new_dataset.to_csv('../Dataset_Test_Eren/Graphs/Datasets/New_Dataset_Vector_14.csv', index=False)
+    new_dataset.to_csv('../Dataset_Test_Eren/Graphs/Datasets/New_Dataset_Vector_v2_10_chat.csv', index=False)
 
 
 def test_features():
 
-    df = pd.read_csv('../Dataset_Test_Eren/Graphs/Datasets/New_Dataset_Vector.csv')
+    df = pd.read_csv('../Dataset_Test_Eren/Graphs/Datasets/New_Dataset_Vector_v2.csv')
 
     # Separate labels and features
     labels = df.iloc[:, 0] # first Column (label)
@@ -28,15 +28,15 @@ def test_features():
     features_scaled = scaler.fit_transform(features)
 
     # Apply PCA
-    pca = PCA(n_components=15) # Arrange According to feature
+    pca = PCA(n_components=29) # Arrange According to feature
     principal_components = pca.fit_transform(features_scaled)
 
     # Explained variance ratio (how much variance each PC explains)
     explained_variance = pca.explained_variance_ratio_
     print(explained_variance)
 
-    feature_contributions = np.abs(pca.components_)
-    top_features = np.argsort(-feature_contributions[0])[:14]
+    contribution_sum = np.sum(np.abs(pca.components_[5:15]), axis=0)  # 5:15 = PC6 to PC15
+    top_features = np.argsort(-contribution_sum)[:10]
     print("Top Contributing Features (PC1):", df.columns[1:][top_features])
     create_dataset(df , top_features)
 

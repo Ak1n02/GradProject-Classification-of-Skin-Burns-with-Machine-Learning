@@ -22,7 +22,7 @@ def collect_all(folder_paths, feature_types, type_kurtosis=1, type_skewness=1):
                 datas.append(feature_data)
 
     data = pd.concat(datas, axis=1)
-    data.to_csv(f'../Dataset_Test_Eren/Graphs/Datasets/New_Dataset_Vector.csv', index=False)
+    data.to_csv(f'../Dataset_Test_Eren/Graphs/Datasets/New_Dataset_Vector_v2.csv', index=False)
 
 '''    hue_data, kurtosis_data, skewness_data = pd.read_csv(f'{folder_paths[0]}/General_HueStd.csv'), [], []
     if type_kurtosis == 1:
@@ -82,7 +82,10 @@ def collect_degrees(folder_paths, type_kurtosis, type_skewness):
 def convert_to_csv(path, file_name, feature_type, type_number):
     labels = {'hue': ('Hue Mean', 'Hue Std'), 'kurtosis': ('Kurtosis A', 'Kurtosis B'), 'skewness': ('Skewness A', 'Skewness B'), 'hsv_hue': ('HSV_Hue Mean', 'HSV_Hue Std'),
               'saturation': ('Saturation Mean', 'Saturation Std'), 'value': ('Value Mean', 'Value Std'),
-              'contrast': 'Contrast', 'correlation': 'Correlation', 'homogeneity': 'Homogeneity'}
+              'contrast': 'Contrast', 'correlation': 'Correlation', 'homogeneity': 'Homogeneity', 'chroma': ('Chroma Mean', 'Chroma Std'),
+              'lab_l': ('L Mean', 'L Std'), 'lab_a': ('A Mean', 'A Std'), 'lab_b': ('B Mean', 'B Std'),
+              'y': ('Y Mean', 'Y Std'), 'cr': ('Cr Mean', 'Cr Std'), 'cb': ('Cb Mean', 'Cb Std')}
+
     data = []
     df = None
     with open(path, 'r') as file:
@@ -120,19 +123,31 @@ def convert_to_csv(path, file_name, feature_type, type_number):
         df.to_csv(f'../Dataset_Test_Eren/Graphs/HSV/{feature_type.capitalize()}/{file_name.split(".")[0]}.csv', index=False)
     elif feature_type == 'value':
         df.to_csv(f'../Dataset_Test_Eren/Graphs/HSV/{feature_type.capitalize()}/{file_name.split(".")[0]}.csv', index=False)
-    elif feature_type  == 'contrast':
-        df.to_csv(f'../Dataset_Test_Eren/Graphs/{feature_type.capitalize()}/{file_name.split(".")[0]}.csv', index=False)
-    elif feature_type == 'correlation':
-        df.to_csv(f'../Dataset_Test_Eren/Graphs/{feature_type.capitalize()}/{file_name.split(".")[0]}.csv', index=False)
-    elif feature_type == 'homogeneity':
+    elif feature_type  == 'lab_l':
+        df.to_csv(f'../Dataset_Test_Eren/Graphs/LAB/L/{file_name.split(".")[0]}.csv', index=False)
+    elif feature_type  == 'lab_a':
+        df.to_csv(f'../Dataset_Test_Eren/Graphs/LAB/A/{file_name.split(".")[0]}.csv', index=False)
+    elif feature_type  == 'lab_b':
+        df.to_csv(f'../Dataset_Test_Eren/Graphs/LAB/B/{file_name.split(".")[0]}.csv', index=False)
+    elif feature_type  == 'y':
+        df.to_csv(f'../Dataset_Test_Eren/Graphs/YCrCb/Y/{file_name.split(".")[0]}.csv', index=False)
+    elif feature_type  == 'cr':
+        df.to_csv(f'../Dataset_Test_Eren/Graphs/YCrCb/Cr/{file_name.split(".")[0]}.csv', index=False)
+    elif feature_type  == 'cb':
+        df.to_csv(f'../Dataset_Test_Eren/Graphs/YCrCb/Cb/{file_name.split(".")[0]}.csv', index=False)
+    else:
         df.to_csv(f'../Dataset_Test_Eren/Graphs/{feature_type.capitalize()}/{file_name.split(".")[0]}.csv', index=False)
 
 def arrange_folders():
     folder_paths = ['../Dataset_Test_Eren/Graphs/Hue', '../Dataset_Test_Eren/Graphs/Kurtosis', '../Dataset_Test_Eren/Graphs/Skewness', '../Dataset_Test_Eren/Graphs/HSV/Hue',
                     '../Dataset_Test_Eren/Graphs/HSV/Saturation', '../Dataset_Test_Eren/Graphs/HSV/Value',
                     '../Dataset_Test_Eren/Graphs/Contrast', '../Dataset_Test_Eren/Graphs/Homogeneity',
-                    '../Dataset_Test_Eren/Graphs/Correlation']
-    feature_types = ['hue', 'kurtosis', 'skewness', 'hsv_hue', 'saturation', 'value', 'contrast', 'correlation', 'homogeneity']
+                    '../Dataset_Test_Eren/Graphs/Correlation', '../Dataset_Test_Eren/Graphs/Chroma',
+                    '../Dataset_Test_Eren/Graphs/LAB/L', '../Dataset_Test_Eren/Graphs/LAB/A', '../Dataset_Test_Eren/Graphs/LAB/B',
+                    '../Dataset_Test_Eren/Graphs/YCrCb/Y', '../Dataset_Test_Eren/Graphs/YCrCb/Cr', '../Dataset_Test_Eren/Graphs/YCrCb/Cb']
+    feature_types = ['hue', 'kurtosis', 'skewness', 'hsv_hue', 'saturation', 'value',
+                     'contrast', 'homogeneity', 'correlation', 'chroma', 'lab_l',
+                     'lab_a', 'lab_b', 'y', 'cr', 'cb']
     for index, folder_path in enumerate(folder_paths):
         if index == 1:
             inner_folder = ['Fisher (Normal)', 'Article']
@@ -156,8 +171,12 @@ if __name__ == '__main__':
     folders = ['../Dataset_Test_Eren/Graphs/Hue', '../Dataset_Test_Eren/Graphs/Kurtosis', '../Dataset_Test_Eren/Graphs/Skewness', '../Dataset_Test_Eren/Graphs/HSV/Hue',
                     '../Dataset_Test_Eren/Graphs/HSV/Saturation', '../Dataset_Test_Eren/Graphs/HSV/Value',
                     '../Dataset_Test_Eren/Graphs/Contrast', '../Dataset_Test_Eren/Graphs/Homogeneity',
-                    '../Dataset_Test_Eren/Graphs/Correlation']
-    features_types = ['hue', 'kurtosis', 'skewness', 'hsv_hue', 'saturation', 'value', 'contrast', 'correlation', 'homogeneity']
+                    '../Dataset_Test_Eren/Graphs/Correlation', '../Dataset_Test_Eren/Graphs/Chroma',
+                    '../Dataset_Test_Eren/Graphs/LAB/L', '../Dataset_Test_Eren/Graphs/LAB/A', '../Dataset_Test_Eren/Graphs/LAB/B',
+                    '../Dataset_Test_Eren/Graphs/YCrCb/Y', '../Dataset_Test_Eren/Graphs/YCrCb/Cr', '../Dataset_Test_Eren/Graphs/YCrCb/Cb']
+    features_types = ['hue', 'kurtosis', 'skewness', 'hsv_hue', 'saturation', 'value',
+                     'contrast', 'homogeneity', 'correlation', 'chroma', 'lab_l',
+                     'lab_a', 'lab_b', 'y', 'cr', 'cb']
 #    collect_degrees(folders, 2, 2)
     collect_all(folders, features_types, 2, 2)
 #    arrange_folders()

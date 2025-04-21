@@ -3,13 +3,17 @@ import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.stats import kurtosis, skew
+from hsv import normalize
 
 
 def get_features(folder_index, img, feature_type, type_number=1):
 
     # Save the statistics to text files
     text_files = ['FirstDegreeStatistics.txt', 'SecondDegreeStatistics.txt', 'ThirdDegreeStatistics.txt']
-    folders = {'hue': '../Dataset_Test_Eren/Graphs/Hue', 'kurtosis_feature': ('../Dataset_Test_Eren/Graphs/Kurtosis/Fisher (Normal)', '../Dataset_Test_Eren/Graphs/Kurtosis/Article'), 'skewness': ('../Dataset_Test_Eren/Graphs/Skewness/Default', '../Dataset_Test_Eren/Graphs/Skewness/Article')}
+    folders = {'hue': '../Dataset_Test_Eren/Graphs/Hue', 'kurtosis_feature': ('../Dataset_Test_Eren/Graphs/Kurtosis/Fisher (Normal)',
+               '../Dataset_Test_Eren/Graphs/Kurtosis/Article'), 'skewness': ('../Dataset_Test_Eren/Graphs/Skewness/Default',
+               '../Dataset_Test_Eren/Graphs/Skewness/Article'), 'chroma': '../Dataset_Test_Eren/Graphs/Chroma',
+               'lab_l': '../Dataset_Test_Eren/Graphs/LAB/L', 'lab_a': '../Dataset_Test_Eren/Graphs/LAB/A', 'lab_b': '../Dataset_Test_Eren/Graphs/LAB/B'}
 
     # Load image and convert to LAB color space
     lab_img = cv.cvtColor(img, cv.COLOR_BGR2LAB)
@@ -17,6 +21,7 @@ def get_features(folder_index, img, feature_type, type_number=1):
 
     # Mask out white pixels
     mask = ~((l == 255) & (a == 128) & (b == 128))
+    l_valid = l[mask]
     a_valid = a[mask]
     b_valid = b[mask]
 
@@ -25,7 +30,7 @@ def get_features(folder_index, img, feature_type, type_number=1):
     a_valid = a_valid[valid_mask]
     b_valid = b_valid[valid_mask]
 
-    # Compute mean and std of a* and b* values
+    # Compute mean and std of a*,b* values and l values
     mean_val_a, std_val_a = np.mean(a_valid, dtype=np.float64), np.std(a_valid, dtype=np.float64)
     mean_val_b, std_val_b = np.mean(b_valid, dtype=np.float64), np.std(b_valid, dtype=np.float64)
 
@@ -61,7 +66,6 @@ def get_features(folder_index, img, feature_type, type_number=1):
         statement = f"Degree: {folder_index + 1}, Kurtosis A: {kurtosis_a:.2f}, Kurtosis B: {kurtosis_b:.2f}"
         return os.path.join(folders[feature_type][type_number - 1], text_files[folder_index]), statement
 
-
     elif feature_type == 'skewness':
         if type_number == 1:
             if (std_val_a == 0 or len(a_valid) < 2) and (std_val_b == 0 or len(b_valid) < 2):
@@ -78,6 +82,24 @@ def get_features(folder_index, img, feature_type, type_number=1):
         statement = f"Degree: {folder_index + 1}, Skewness A: {skewness_a:.2f}, Skewness B: {skewness_b:.2f}"
         return os.path.join(folders[feature_type][type_number - 1], text_files[folder_index]), statement
 
+    elif feature_type == 'chroma':
+
+        chroma = np.sqrt(a_valid ** 2 + b_valid ** 2)
+        chroma_mean, chroma_std = np.mean(chroma, dtype=np.float64), np.std(chroma, dtype=np.float64)
+        statement = f"Degree: {folder_index + 1}, Chroma Mean: {chroma_mean:.2f}, Chroma Std: {chroma_std:.2f}"
+        return os.path.join(folders[feature_type], text_files[folder_index]), statement
+
+    elif feature_type.startswith('lab'):
+        if feature_type == 'lab_l':
+            mean_val_l_normalize, std_val_l_normalize = np.mean(normalize(l_valid), dtype=np.float64), np.std(normalize(l_valid), dtype=np.float64)
+            statement = f"Degree: {folder_index + 1}, L Mean: {mean_val_l_normalize:.2f}, L Std: {std_val_l_normalize:.2f}"
+        elif feature_type == 'lab_a':
+            mean_val_a_normalize, std_val_a_normalize = np.mean(normalize(a_valid), dtype=np.float64), np.std(normalize(a_valid), dtype=np.float64)
+            statement = f"Degree: {folder_index + 1}, A Mean: {mean_val_a_normalize:.2f}, A Std: {std_val_a_normalize:.2f}"
+        elif feature_type == 'lab_b':
+            mean_val_b_normalize, std_val_b_normalize = np.mean(normalize(b_valid), dtype=np.float64), np.std(normalize(b_valid), dtype=np.float64)
+            statement = f"Degree: {folder_index + 1}, B Mean: {mean_val_b_normalize:.2f}, B Std: {std_val_b_normalize:.2f}"
+        return os.path.join(folders[feature_type], text_files[folder_index]), statement
 
 def save_statistics(file_path, statement):
     with open(file_path, 'a') as f:
@@ -128,7 +150,7 @@ def plot_information(folder_index, folder_path, feature_type):
 def main():
     folder_paths = ['../new_final_preprocessed_data_set/first_degree', '../new_final_preprocessed_data_set/second_degree', '../new_final_preprocessed_data_set/third_degree']
     for index, folder_path in enumerate(folder_paths):
-        plot_information(index, folder_path, 'skewness')
+        plot_information(index, folder_path, 'lab_b')
 
 if __name__ == '__main__':
     main()

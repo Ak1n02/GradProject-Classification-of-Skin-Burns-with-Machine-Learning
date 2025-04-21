@@ -7,7 +7,7 @@ from sklearn.model_selection import cross_val_score
 
 def normalize_data_set(group_size=12):
 
-    data = pd.read_csv('../Dataset_Test_Eren/Graphs/Datasets/New_Dataset_Vector_14.csv')
+    data = pd.read_csv('../Dataset_Test_Eren/Graphs/Datasets/New_Dataset_Vector_v2_10_chat.csv')
     x = data.iloc[:, 1:] # Features
     y = data.iloc[:, 0] # Skin Burn Degrees
 

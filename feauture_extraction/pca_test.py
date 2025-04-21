@@ -1,9 +1,11 @@
 import pandas as pd
 import numpy as np
+from matplotlib import pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import MinMaxScaler
 
-def create_dataset(original_data_set, top_features):
+def create_dataset(original_data_set, top_features, start, end, parameters):
+
 
     labels = original_data_set.iloc[:, 0]
 
@@ -12,8 +14,7 @@ def create_dataset(original_data_set, top_features):
 
     # Merge labels with selected features
     new_dataset = pd.concat([labels, selected_features], axis=1)
-    new_dataset.to_csv('../Dataset_Test_Eren/Graphs/Datasets/New_Dataset_Vector_v2_10_chat.csv', index=False)
-
+    new_dataset.to_csv(f'../Dataset_Test_Eren/Graphs/Datasets/{parameters}/New_Dataset_Vector_v2_PCA{start}_PCA{end}_{parameters}.csv', index=False)
 
 def test_features():
 
@@ -35,10 +36,14 @@ def test_features():
     explained_variance = pca.explained_variance_ratio_
     print(explained_variance)
 
-    contribution_sum = np.sum(np.abs(pca.components_[5:15]), axis=0)  # 5:15 = PC6 to PC15
-    top_features = np.argsort(-contribution_sum)[:10]
-    print("Top Contributing Features (PC1):", df.columns[1:][top_features])
-    create_dataset(df , top_features)
+    for parameter in range(10,16):
+        for start in range(1,15):
+            for end in range(start + 1, 16):
+                components = pca.components_[start:end]
+                contribution_sum = np.sum(np.abs(components), axis=0)
+                top_features = np.argsort(-contribution_sum)[:parameter]
+                print("Top Contributing Features (PC1):", df.columns[1:][top_features])
+                create_dataset(df , top_features, start, end, parameter)
 
 if __name__ == '__main__':
     test_features()

@@ -36,13 +36,13 @@ def test_features():
     explained_variance = pca.explained_variance_ratio_
     print(explained_variance)
 
-    for parameter in range(10,16):
+    for parameter in range(4,10):
         for start in range(1,15):
             for end in range(start + 1, 16):
                 components = pca.components_[start:end]
                 contribution_sum = np.sum(np.abs(components), axis=0)
                 top_features = np.argsort(-contribution_sum)[:parameter]
-                print("Top Contributing Features (PC1):", df.columns[1:][top_features])
+                print("Top Contributing Features:", df.columns[1:][top_features])
                 create_dataset(df , top_features, start, end, parameter)
 
 if __name__ == '__main__':

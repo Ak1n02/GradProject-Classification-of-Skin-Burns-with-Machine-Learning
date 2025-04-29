@@ -1,0 +1,315 @@
+Start PCA: PCA10, End PCA: PCA11, Number Parameter: 4.csv
+Mean Accuracy: 0.53
+
+Start PCA: PCA10, End PCA: PCA12, Number Parameter: 4.csv
+Mean Accuracy: 0.52
+
+Start PCA: PCA10, End PCA: PCA13, Number Parameter: 4.csv
+Mean Accuracy: 0.53
+
+Start PCA: PCA10, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.53
+
+Start PCA: PCA10, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.50
+
+Start PCA: PCA11, End PCA: PCA12, Number Parameter: 4.csv
+Mean Accuracy: 0.50
+
+Start PCA: PCA11, End PCA: PCA13, Number Parameter: 4.csv
+Mean Accuracy: 0.47
+
+Start PCA: PCA11, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.50
+
+Start PCA: PCA11, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.53
+
+Start PCA: PCA12, End PCA: PCA13, Number Parameter: 4.csv
+Mean Accuracy: 0.46
+
+Start PCA: PCA12, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.50
+
+Start PCA: PCA12, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.53
+
+Start PCA: PCA13, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.54
+
+Start PCA: PCA13, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.52
+
+Start PCA: PCA14, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.55
+
+Start PCA: PCA1, End PCA: PCA10, Number Parameter: 4.csv
+Mean Accuracy: 0.58
+
+Start PCA: PCA1, End PCA: PCA11, Number Parameter: 4.csv
+Mean Accuracy: 0.57
+
+Start PCA: PCA1, End PCA: PCA12, Number Parameter: 4.csv
+Mean Accuracy: 0.57
+
+Start PCA: PCA1, End PCA: PCA13, Number Parameter: 4.csv
+Mean Accuracy: 0.52
+
+Start PCA: PCA1, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.52
+
+Start PCA: PCA1, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.52
+
+Start PCA: PCA1, End PCA: PCA2, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA1, End PCA: PCA3, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA1, End PCA: PCA4, Number Parameter: 4.csv
+Mean Accuracy: 0.55
+
+Start PCA: PCA1, End PCA: PCA5, Number Parameter: 4.csv
+Mean Accuracy: 0.59
+
+Start PCA: PCA1, End PCA: PCA6, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA1, End PCA: PCA7, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA1, End PCA: PCA8, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA1, End PCA: PCA9, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA2, End PCA: PCA10, Number Parameter: 4.csv
+Mean Accuracy: 0.58
+
+Start PCA: PCA2, End PCA: PCA11, Number Parameter: 4.csv
+Mean Accuracy: 0.58
+
+Start PCA: PCA2, End PCA: PCA12, Number Parameter: 4.csv
+Mean Accuracy: 0.52
+
+Start PCA: PCA2, End PCA: PCA13, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA2, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA2, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA2, End PCA: PCA3, Number Parameter: 4.csv
+Mean Accuracy: 0.60
+
+Start PCA: PCA2, End PCA: PCA4, Number Parameter: 4.csv
+Mean Accuracy: 0.55
+
+Start PCA: PCA2, End PCA: PCA5, Number Parameter: 4.csv
+Mean Accuracy: 0.62
+
+Start PCA: PCA2, End PCA: PCA6, Number Parameter: 4.csv
+Mean Accuracy: 0.60
+
+Start PCA: PCA2, End PCA: PCA7, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA2, End PCA: PCA8, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA2, End PCA: PCA9, Number Parameter: 4.csv
+Mean Accuracy: 0.60
+
+Start PCA: PCA3, End PCA: PCA10, Number Parameter: 4.csv
+Mean Accuracy: 0.52
+
+Start PCA: PCA3, End PCA: PCA11, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA3, End PCA: PCA12, Number Parameter: 4.csv
+Mean Accuracy: 0.60
+
+Start PCA: PCA3, End PCA: PCA13, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA3, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.53
+
+Start PCA: PCA3, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.53
+
+Start PCA: PCA3, End PCA: PCA4, Number Parameter: 4.csv
+Mean Accuracy: 0.57
+
+Start PCA: PCA3, End PCA: PCA5, Number Parameter: 4.csv
+Mean Accuracy: 0.61
+
+Start PCA: PCA3, End PCA: PCA6, Number Parameter: 4.csv
+Mean Accuracy: 0.54
+
+Start PCA: PCA3, End PCA: PCA7, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA3, End PCA: PCA8, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA3, End PCA: PCA9, Number Parameter: 4.csv
+Mean Accuracy: 0.52
+
+Start PCA: PCA4, End PCA: PCA10, Number Parameter: 4.csv
+Mean Accuracy: 0.49
+
+Start PCA: PCA4, End PCA: PCA11, Number Parameter: 4.csv
+Mean Accuracy: 0.49
+
+Start PCA: PCA4, End PCA: PCA12, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA4, End PCA: PCA13, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA4, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.53
+
+Start PCA: PCA4, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.53
+
+Start PCA: PCA4, End PCA: PCA5, Number Parameter: 4.csv
+Mean Accuracy: 0.58
+
+Start PCA: PCA4, End PCA: PCA6, Number Parameter: 4.csv
+Mean Accuracy: 0.55
+
+Start PCA: PCA4, End PCA: PCA7, Number Parameter: 4.csv
+Mean Accuracy: 0.54
+
+Start PCA: PCA4, End PCA: PCA8, Number Parameter: 4.csv
+Mean Accuracy: 0.58
+
+Start PCA: PCA4, End PCA: PCA9, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA5, End PCA: PCA10, Number Parameter: 4.csv
+Mean Accuracy: 0.54
+
+Start PCA: PCA5, End PCA: PCA11, Number Parameter: 4.csv
+Mean Accuracy: 0.54
+
+Start PCA: PCA5, End PCA: PCA12, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA5, End PCA: PCA13, Number Parameter: 4.csv
+Mean Accuracy: 0.56
+
+Start PCA: PCA5, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.50
+
+Start PCA: PCA5, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.50
+
+Start PCA: PCA5, End PCA: PCA6, Number Parameter: 4.csv
+Mean Accuracy: 0.54
+
+Start PCA: PCA5, End PCA: PCA7, Number Parameter: 4.csv
+Mean Accuracy: 0.54
+
+Start PCA: PCA5, End PCA: PCA8, Number Parameter: 4.csv
+Mean Accuracy: 0.57
+
+Start PCA: PCA5, End PCA: PCA9, Number Parameter: 4.csv
+Mean Accuracy: 0.54
+
+Start PCA: PCA6, End PCA: PCA10, Number Parameter: 4.csv
+Mean Accuracy: 0.54
+
+Start PCA: PCA6, End PCA: PCA11, Number Parameter: 4.csv
+Mean Accuracy: 0.54
+
+Start PCA: PCA6, End PCA: PCA12, Number Parameter: 4.csv
+Mean Accuracy: 0.50
+
+Start PCA: PCA6, End PCA: PCA13, Number Parameter: 4.csv
+Mean Accuracy: 0.47
+
+Start PCA: PCA6, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.48
+
+Start PCA: PCA6, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.48
+
+Start PCA: PCA6, End PCA: PCA7, Number Parameter: 4.csv
+Mean Accuracy: 0.55
+
+Start PCA: PCA6, End PCA: PCA8, Number Parameter: 4.csv
+Mean Accuracy: 0.58
+
+Start PCA: PCA6, End PCA: PCA9, Number Parameter: 4.csv
+Mean Accuracy: 0.54
+
+Start PCA: PCA7, End PCA: PCA10, Number Parameter: 4.csv
+Mean Accuracy: 0.48
+
+Start PCA: PCA7, End PCA: PCA11, Number Parameter: 4.csv
+Mean Accuracy: 0.49
+
+Start PCA: PCA7, End PCA: PCA12, Number Parameter: 4.csv
+Mean Accuracy: 0.51
+
+Start PCA: PCA7, End PCA: PCA13, Number Parameter: 4.csv
+Mean Accuracy: 0.48
+
+Start PCA: PCA7, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.48
+
+Start PCA: PCA7, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.48
+
+Start PCA: PCA7, End PCA: PCA8, Number Parameter: 4.csv
+Mean Accuracy: 0.55
+
+Start PCA: PCA7, End PCA: PCA9, Number Parameter: 4.csv
+Mean Accuracy: 0.49
+
+Start PCA: PCA8, End PCA: PCA10, Number Parameter: 4.csv
+Mean Accuracy: 0.55
+
+Start PCA: PCA8, End PCA: PCA11, Number Parameter: 4.csv
+Mean Accuracy: 0.48
+
+Start PCA: PCA8, End PCA: PCA12, Number Parameter: 4.csv
+Mean Accuracy: 0.51
+
+Start PCA: PCA8, End PCA: PCA13, Number Parameter: 4.csv
+Mean Accuracy: 0.48
+
+Start PCA: PCA8, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.48
+
+Start PCA: PCA8, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.48
+
+Start PCA: PCA8, End PCA: PCA9, Number Parameter: 4.csv
+Mean Accuracy: 0.51
+
+Start PCA: PCA9, End PCA: PCA10, Number Parameter: 4.csv
+Mean Accuracy: 0.55
+
+Start PCA: PCA9, End PCA: PCA11, Number Parameter: 4.csv
+Mean Accuracy: 0.54
+
+Start PCA: PCA9, End PCA: PCA12, Number Parameter: 4.csv
+Mean Accuracy: 0.48
+
+Start PCA: PCA9, End PCA: PCA13, Number Parameter: 4.csv
+Mean Accuracy: 0.46
+
+Start PCA: PCA9, End PCA: PCA14, Number Parameter: 4.csv
+Mean Accuracy: 0.48
+
+Start PCA: PCA9, End PCA: PCA15, Number Parameter: 4.csv
+Mean Accuracy: 0.50
+

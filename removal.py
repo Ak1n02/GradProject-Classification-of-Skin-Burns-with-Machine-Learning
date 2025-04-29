@@ -197,8 +197,8 @@ def process_directory(input_dir, output_dir):
 
 # Process all subdirectories (burn degrees)
 if __name__ == "__main__":
-    input_base = "test_yanik_yeni"
-    output_base =  "test_yanik_yeni_removed"
+    input_base = "test_aa"
+    output_base =  "test_aa_removed"
 
     burn_degrees = ["first_degree","second_degree", "third_degree"]
 

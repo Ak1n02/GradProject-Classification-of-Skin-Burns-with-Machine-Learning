@@ -162,8 +162,8 @@ def process_dataset(input_directory, output_directory):
 
 def main():
     # Define input and output directories
-    input_directory = "test_yanik_yeni_removed"
-    output_directory = "test_yanik_yeni_removed_processed"
+    input_directory = "test_aa_removed"
+    output_directory = "test_aa_removed_preprocessed"
     # Process the entire dataset
     process_dataset(input_directory, output_directory)
 

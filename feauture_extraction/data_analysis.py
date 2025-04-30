@@ -1,15 +1,14 @@
-import os
-
 import joblib
 import pandas as pd
-from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import  GroupKFold
+from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.model_selection import GroupKFold
 
 
 #paths = ['../Dataset_Test_Eren/Graphs/Datasets/4', '../Dataset_Test_Eren/Graphs/Datasets/5', '../Dataset_Test_Eren/Graphs/Datasets/6', '../Dataset_Test_Eren/Graphs/Datasets/7', '../Dataset_Test_Eren/Graphs/Datasets/8', '../Dataset_Test_Eren/Graphs/Datasets/9']
 #log_files = ['../Dataset_Test_Eren/Graphs/Logs/knn_log_4.txt', '../Dataset_Test_Eren/Graphs/Logs/knn_log_5.txt', '../Dataset_Test_Eren/Graphs/Logs/knn_log_6.txt', '../Dataset_Test_Eren/Graphs/Logs/knn_log_7.txt', '../Dataset_Test_Eren/Graphs/Logs/knn_log_8.txt', '../Dataset_Test_Eren/Graphs/Logs/knn_log_9.txt']
+
 
 def save_to_log_file(log_file, message):
     with open(log_file, 'a') as f:
@@ -70,7 +69,6 @@ def main(group_size):
     dataset_path = f'../Dataset_Test_Eren/Graphs/Datasets/20/New_Dataset_Vector_v2_PCA7_PCA13_20.csv'
     normalized_data = normalize_data_set(dataset_path, group_size)
     train_and_save_model(normalized_data)
-
 
 if __name__ == '__main__':
     main(12)

@@ -122,10 +122,13 @@ def train_xgboost_base_model(): # Ideal for New_Dataset_Vector_v2_PCA7_PCA13_20.
         num_class=3,
         eval_metric='mlogloss',
         random_state=42,
-        colsample_bytree=0.8,
-        learning_rate=0.1,
+        colsample_bytree=0.7941923344801324,
+        learning_rate=0.13999921132088788,
         max_depth=3,
-        n_estimators=250,
-        subsample=0.7
+        n_estimators=338,
+        subsample=0.8512082586984305,
+        gamma=1.5559476157453365,
+        reg_alpha=0.5683609279761908,
+        reg_lambda=1.3296368339860618
     )
     return model

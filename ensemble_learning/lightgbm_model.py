@@ -82,7 +82,6 @@ def train_lightgbm_with_tuning(normalized_data):
         'colsample_bytree': [0.6, 0.8, 1.0]
     }
 
-    # Modeli tanımlıyoruz
     lgb_model = lgb.LGBMClassifier(
         boosting_type='gbdt',
         objective='multiclass',
@@ -120,14 +119,14 @@ def train_lightgbm_base_model():
         objective='multiclass',
         num_class=3,
         random_state=42,
-        n_estimators=101,
-        max_depth=6,
-        learning_rate=0.08671907536080065,
-        subsample=0.9087609930050841,
-        colsample_bytree=0.7491825626724145,
-        min_child_weight=1,
-        reg_alpha=1.6562936335358835,
-        reg_lambda=2.030641207935405,
+        n_estimators=246,
+        max_depth=3,
+        learning_rate=0.035643315221163915,
+        subsample=0.8890338275927295,
+        colsample_bytree=0.9048865226480963,
+        min_child_weight=8,
+        reg_alpha=0.3178437027407188,
+        reg_lambda=1.7404007794464775,
         verbose=-1
     )
     return lgb_model

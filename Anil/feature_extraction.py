@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 from scipy.stats import skew, kurtosis
+from skimage.measure import shannon_entropy
+from skimage.feature import graycomatrix, graycoprops, local_binary_pattern
 
 
 def extract_features(image_path, degree):
@@ -13,16 +15,12 @@ def extract_features(image_path, degree):
     #split L*, a*, b*  channels
     L, a, b = cv2.split(lab_image)
 
-    mask = ~((L == 0) & (a == 128) & (b == 128))
-    a_valid = a[mask]
-    b_valid = b[mask]
-
     # Remove zero a*,b* pairs to avoid division by zero in atan2
-    valid_mask = (a_valid != 0) | (b_valid != 0)
-    a_valid = a_valid[valid_mask]
-    b_valid = b_valid[valid_mask]
+    valid_mask = (a != 0) | (b != 0)
+    a = a[valid_mask]
+    b = b[valid_mask]
 
-    if len(a_valid) == 0 or len(b_valid) == 0:
+    if len(a) == 0 or len(b) == 0:
         print(f"Skipping image {image_path}: No valid a* or b* values.")
         return None
 
@@ -32,14 +30,14 @@ def extract_features(image_path, degree):
     #-128 to change range from [0, 255] to [-128, 127]
     #a* greenish for negative reddish for positive
     #b* blueish for negative, yellowish for positive
-    a = a_valid.astype(np.float32) - 128
-    b = b_valid.astype(np.float32) - 128
+    a_float = a.astype(np.float32) - 128
+    b_float = b.astype(np.float32) - 128
 
-    mean_a, std_a = np.mean(a), np.std(a)
-    mean_b, std_b = np.mean(b), np.std(b)
+    mean_a, std_a = np.mean(a_float), np.std(a_float)
+    mean_b, std_b = np.mean(b_float), np.std(b_float)
 
     #calculate Hue angle in Degrees
-    hue = np.arctan2(b, a) * (180 / np.pi)
+    hue = np.arctan2(b_float, a_float) * (180 / np.pi)
     hue = np.mod(hue, 360) #keep it between [0, 360]
     hue_mean = np.mean(hue)
     hue_std = np.std(hue)
@@ -51,12 +49,31 @@ def extract_features(image_path, degree):
     b_kurtosis = kurtosis(b.flatten(), fisher=True)
     b_skewness = skew(b.flatten())
 
-    # Create a dictionary of extracted features with the degree label
+    # Entropy Features
+    entropy_a = shannon_entropy(a)
+    entropy_b = shannon_entropy(b)
+
+    # Texture Features using GLCM
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    glcm = graycomatrix(gray, distances=[1], angles=[0], levels=256, symmetric=True, normed=True)
+    contrast = graycoprops(glcm, 'contrast')[0, 0]
+    homogeneity = graycoprops(glcm, 'homogeneity')[0, 0]
+    energy = graycoprops(glcm, 'energy')[0, 0]
+    correlation = graycoprops(glcm, 'correlation')[0, 0]
+
+    # LBP Features
+    lbp = local_binary_pattern(gray, P=8, R=1, method='uniform')
+    lbp_hist, _ = np.histogram(lbp.ravel(), bins=np.arange(0, 11), density=True)
+
+    # Create dictionary
     features = {
-        'degree': degree,  # Add degree as Y value
+        'degree': degree,
         'mean_a': mean_a, 'std_a': std_a, 'skew_a': a_skewness, 'kurtosis_a': a_kurtosis,
         'mean_b': mean_b, 'std_b': std_b, 'skew_b': b_skewness, 'kurtosis_b': b_kurtosis,
-        'hue_mean': hue_mean, 'hue_std': hue_std
+        'hue_mean': hue_mean, 'hue_std': hue_std,
+        'entropy_a': entropy_a, 'entropy_b': entropy_b,
+        'glcm_contrast': contrast, 'glcm_homogeneity': homogeneity,
+        'glcm_energy': energy, 'glcm_correlation': correlation
     }
 
     return features

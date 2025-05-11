@@ -6,6 +6,7 @@ from catboost_model import *
 from feauture_extraction.data_analysis import normalize_data_set
 from lightgbm_model import *
 from xgboost_model import *
+from svm_rf import *
 
 
 def predict_with_2stage_model(x_test, y_pred_main, sub_model):
@@ -39,7 +40,7 @@ def train_voting_classifier(normalized_data):
     gkf = GroupKFold(n_splits=5)
     scores = []
 
-    knn = KNeighborsClassifier(n_neighbors=3, metric='manhattan') # KNN Classifier
+    knn = KNeighborsClassifier(n_neighbors=3, metric='euclidean') # KNN Classifier
     rf = RandomForestClassifier(n_estimators=250, random_state=42)
     svm = SVC(probability=True) # SVM Classifier
 
@@ -51,7 +52,7 @@ def train_voting_classifier(normalized_data):
             ('xgb', train_xgboost_base_model()),
             ('lgb', train_lightgbm_base_model())
         ],
-        weights=[1, 1, 1, 1, 3],
+        weights=[1, 2, 2, 2, 3],
         voting='soft'
     )
 

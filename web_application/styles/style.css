@@ -1,0 +1,62 @@
+
+.notification-box {
+    margin-top: 7%;
+    border: 0 none white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 14px;
+    background: linear-gradient(-45deg, #22332a, #36594a, #497b63, #22332a);
+    background-size: 500% 500%;
+    animation: gradientBG 6s ease infinite;
+}
+
+.warning-message {
+    border-radius: 0.5rem;
+    line-height: 1.6;
+    font-size: 1rem;
+    font-family: "Source Sans Pro", sans-serif;
+    color: rgb(255, 255, 194);
+    background-color: rgba(255, 227, 18, 0.2);
+    padding: 1rem;
+    margin-bottom: 5px;
+}
+
+.notification-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    padding-bottom: 10px;
+}
+
+.notification-content {
+    font-size: 18px;
+}
+
+.st-key-verify button {
+    background: linear-gradient(-45deg, #8B0000, #B22222, #DC143C, #8B0000);
+    background-size: 500% 500%;
+    animation: gradientBG 6s ease infinite;
+    border: 0 none;
+    float: right;
+}
+
+.st-key-verify button:hover {
+    background: linear-gradient(-45deg, #006400, #228B22, #32CD32, #006400);;
+    background-size: 500% 500%;
+    animation: gradientBG 6s ease infinite;
+
+}
+
+.st-key-verify button p {
+    font-size: 16px;
+    color: white;
+}
+
+@keyframes gradientBG {
+    0% {background-position: 0 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0 50%;}
+}
+
+
+

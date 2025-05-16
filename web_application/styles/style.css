@@ -33,15 +33,17 @@
 }
 
 .st-key-verify button {
-    background: linear-gradient(-45deg, #8B0000, #B22222, #DC143C, #8B0000);
+    background: linear-gradient(90deg, #8B0000, #B22222, #DC143C, #8B0000);
     background-size: 500% 500%;
     animation: gradientBG 6s ease infinite;
     border: 0 none;
     float: right;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .st-key-verify button:hover {
-    background: linear-gradient(-45deg, #006400, #228B22, #32CD32, #006400);;
+    background: linear-gradient(90deg, #006400, #228B22, #32CD32, #006400);;
     background-size: 500% 500%;
     animation: gradientBG 6s ease infinite;
 

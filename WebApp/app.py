@@ -1,17 +1,13 @@
 import os
 import cv2
-import torch
-import numpy as np
+import timm
 import torch
 
 from flask import Flask, request, render_template, url_for
+
 import torchvision.transforms as transforms
-import k_fold_cnn as k_fold
-import torchvision.transforms as transforms
-import torchvision.datasets as datasets
 from removal import process_and_save
 from preprocess_ak1n import process_image
-import allmodels as modelss
 app = Flask(__name__)
 
 # Set up folders for uploads and results
@@ -25,18 +21,19 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['RESULT_FOLDER'] = RESULT_FOLDER
 
 # Load the burn classification model (assumes the model file is in the same directory)
-MODEL_PATH = r'C:\Users\atess\OneDrive\Masaüstü\best_modelRes1ilkepoch iyiverdi.pth'
-model = modelss.BurnResNet()
+MODEL_PATH = r"E:\asd\regnet97valacc.pth"
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model = timm.create_model('regnety_080', pretrained=True)
+model.reset_classifier(num_classes=3)  # CRITICAL!!
 model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cuda')))
 model.eval()
-
 # Define a mapping for burn degree predictions (adjust as needed)
 class_names = {0: "First Degree Burn", 1: "Second Degree Burn", 2: "Third Degree Burn"}
 
 # Define the image transform: convert numpy array to tensor, resize, and normalize
 transform = transforms.Compose([
     transforms.ToPILImage(),
-    transforms.Resize((256, 256)),  # Change to the expected input size of your CNN
+    transforms.Resize((224, 224)),  # Change to the expected input size of your CNN
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])

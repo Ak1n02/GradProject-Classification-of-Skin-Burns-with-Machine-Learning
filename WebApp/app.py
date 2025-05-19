@@ -8,37 +8,85 @@ from flask import Flask, request, render_template, url_for
 import torchvision.transforms as transforms
 from removal import process_and_save
 from preprocess_ak1n import process_image
+
 app = Flask(__name__)
 
-# Set up folders for uploads and results
 UPLOAD_FOLDER = 'WebApp/static/uploads'
 RESULT_FOLDER = 'WebApp/static/results'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESULT_FOLDER, exist_ok=True)
 
-# Configure static folder
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['RESULT_FOLDER'] = RESULT_FOLDER
 
-# Load the burn classification model (assumes the model file is in the same directory)
-MODEL_PATH = r"E:\asd\regnet97valacc.pth"
+MODEL_PATH = r"E:\asd\regnet94valacc.pth"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = timm.create_model('regnety_080', pretrained=True)
-model.reset_classifier(num_classes=3)  # CRITICAL!!
-model.load_state_dict(torch.load(MODEL_PATH, map_location=torch.device('cuda')))
+model.reset_classifier(num_classes=3)
+model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
 model.eval()
-# Define a mapping for burn degree predictions (adjust as needed)
 class_names = {0: "First Degree Burn", 1: "Second Degree Burn", 2: "Third Degree Burn"}
 
-# Define the image transform: convert numpy array to tensor, resize, and normalize
+# Burn info dictionary
+burn_info = {
+    "First Degree Burn": {
+        "title": "First-Degree Burn",
+        "causes": "Mild sunburn, brief contact with something hot.",
+        "symptoms": "Red, dry skin. Mild swelling. Pain or tenderness.",
+        "treatment": (
+            "Cool the burn under cool (not cold) running water for 10–20 minutes. "
+            "Take off jewelry or tight items before swelling starts. "
+            "Cover with a clean, non-stick bandage or cloth. "
+            "Do not use ice, butter, or ointments. Do not pop blisters. "
+            "Usually heals in about a week. "
+            "See a doctor if you are unsure or if the burn is large."
+        ),
+        "when_to_seek_help": (
+            "See a doctor if the burn is bigger than 3 inches (8 cm), on the face, hands, feet, groin, or joints, "
+            "or if there are signs of infection (more pain, redness, swelling, or oozing)."
+        )
+    },
+    "Second Degree Burn": {
+        "title": "Second-Degree Burn",
+        "causes": "Scalds from hot liquids, severe sunburn, contact with flames, or chemicals.",
+        "symptoms": "Blisters. Deep redness. Swelling. Wet, shiny skin. Severe pain.",
+        "treatment": (
+            "Cool the burn under cool running water for 10–20 minutes. "
+            "Cover with a clean, non-stick bandage. "
+            "Do not break blisters. "
+            "Get medical help if the burn is large or on sensitive areas."
+        ),
+        "when_to_seek_help": (
+            "Get medical help if the burn is bigger than 3 inches (8 cm), on the face, hands, feet, groin, or joints, "
+            "or if there are signs of infection."
+        )
+    },
+    "Third Degree Burn": {
+        "title": "Third-Degree Burn",
+        "causes": "Prolonged exposure to flames, electricity, strong chemicals.",
+        "symptoms": "White, charred, or leathery skin. May feel numb. Swelling.",
+        "treatment": (
+            "Call emergency services right away. "
+            "Do not self-treat. "
+            "Cover with a clean cloth and keep the person warm."
+        ),
+        "when_to_seek_help": (
+            "Always call emergency services for third-degree burns."
+        )
+    }
+}
 transform = transforms.Compose([
     transforms.ToPILImage(),
-    transforms.Resize((224, 224)),  # Change to the expected input size of your CNN
+    transforms.Resize((224, 224)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
+def home():
+    return render_template('home.html')
+
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         if 'image' not in request.files:
@@ -47,49 +95,34 @@ def index():
         if file.filename == '':
             return "No file selected", 400
 
-        # Save the uploaded file
-        upload_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        upload_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(upload_path)
 
-        # ----- Step 1: Background Removal -----
-        # Remove the background using removal.py.
-        # The process_and_save function takes the input file path and writes the result.
-        removed_path = os.path.join(RESULT_FOLDER, 'removed_' + file.filename)
+        removed_path = os.path.join(app.config['RESULT_FOLDER'], 'removed_' + file.filename)
         process_and_save(upload_path, removed_path)
 
-        # ----- Step 2: Preprocess with preprocess_ak1n.py -----
-        # This function processes the image and returns a processed image.
         preprocessed_image = process_image(removed_path)
         if preprocessed_image is None:
             return "Error during preprocessing", 500
 
-        # The output from preprocess_ak1n.py (using cv2.imread) is in BGR order.
-        # Convert to RGB for the model if needed.
         if preprocessed_image.shape[2] == 3:
             preprocessed_image = cv2.cvtColor(preprocessed_image, cv2.COLOR_BGR2RGB)
         elif preprocessed_image.shape[2] == 4:
             preprocessed_image = cv2.cvtColor(preprocessed_image, cv2.COLOR_BGRA2RGB)
 
-
-
-        # ----- Step 3: Burn Classification -----
-        # Transform the image and add a batch dimension
         input_tensor = transform(preprocessed_image).unsqueeze(0)
         with torch.no_grad():
             outputs = model(input_tensor)
             _, predicted = torch.max(outputs, 1)
             burn_degree = class_names.get(predicted.item(), "Unknown")
 
-        # Optionally, save the preprocessed image for display
         result_filename = 'final_' + file.filename
-        result_image_path = os.path.join(RESULT_FOLDER, result_filename)
-        # Convert back to BGR for saving with OpenCV
+        result_image_path = os.path.join(app.config['RESULT_FOLDER'], result_filename)
         cv2.imwrite(result_image_path, cv2.cvtColor(preprocessed_image, cv2.COLOR_RGB2BGR))
 
-        # Generate a URL that Flask can serve
         result_image_url = url_for('static', filename=f'results/{result_filename}')
 
-        return render_template('result.html', burn_degree=burn_degree, result_image=result_image_url)
+        return render_template('result.html', burn_degree=burn_degree, result_image=result_image_url, burn_info=burn_info)
     return render_template('index.html')
 
 if __name__ == '__main__':

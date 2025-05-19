@@ -3,13 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <title>Classification Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        html, body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+        }
+        .main-card {
+            transition: width 0.3s cubic-bezier(.4,2,.6,1), height 0.3s cubic-bezier(.4,2,.6,1);
+            width: 40rem;
+            max-width: 98vw;
+            height: 90vh;
+            max-height: 98vh;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+        }
+        @media (max-width: 900px) {
+            .main-card {
+                width: 100vw;
+                min-width: 0;
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 0;
+            }
+        }
+        /* Burn Info Card Animations */
+        .burn-info-card {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.95) translate(-50%, -50%);
+            transition: opacity 0.7s cubic-bezier(.4,2,.6,1), transform 0.7s cubic-bezier(.4,2,.6,1);
+        }
+        .burn-info-card.open {
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            transform: scale(1) translate(-50%, -50%);
+        }
+        .animate-fade-in {
+            opacity: 0;
+            transition: opacity 1.2s cubic-bezier(.4,2,.6,1);
+        }
+        .animate-fade-in.visible {
+            opacity: 1;
+        }
+    </style>
 </head>
-<body>
-    <h1>Burn Classification Result</h1>
-    <p>Predicted Burn Degree: <strong>{{ burn_degree }}</strong></p>
-    <h2>Processed Image:</h2>
-    <img src="{{ result_image }}" alt="Processed Image" style="max-width:500px;">
-    <br>
-    <a href="/">Process another image</a>
+<body class="min-h-screen flex items-center justify-center px-2">
+    <div id="resultCard" class="main-card bg-white/10 backdrop-blur-lg border border-white/20 shadow-xl rounded-2xl p-0 text-white relative transition-all duration-300 flex flex-col items-center justify-center">
+        <div id="cardContent" class="flex-1 flex flex-col h-full w-full">
+            <h1 class="text-3xl font-bold mb-4 text-center mt-8">Burn Classification Result</h1>
+            <div class="text-lg text-center mb-4 flex flex-col items-center">
+                Predicted Burn Degree:
+                <div class="flex items-center justify-center mt-2 mb-6">
+                    <strong class="text-red-600 text-3xl mr-3">{{ burn_degree }}</strong>
+                </div>
+            </div>
+            <div class="flex-1 flex items-center justify-center mb-6">
+                <img
+                    src="{{ result_image }}"
+                    alt="Processed Image"
+                    class="rounded-xl shadow-lg object-contain max-h-[45vh] max-w-full w-auto transition duration-300 hover:scale-105"
+                    id="result_image"
+                    style="max-height:45vh;"
+                >
+            </div>
+            <div class="flex justify-center gap-4 p-4 border-t border-white/10 bg-white/5">
+    <button
+        id="showBurnInfo"
+        class="relative px-6 py-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-600 text-white font-bold rounded-full shadow-lg hover:scale-105 transition-all duration-300 text-lg tracking-wide focus:outline-none focus:ring-4 focus:ring-red-300 flex items-center"
+        type="button"
+        aria-label="Show burn info"
+    >
+        <i class="fa-solid fa-fire-flame-curved mr-2 animate-pulse"></i>
+        Show Burn Info
+    </button>
+    <a href="/index"
+       class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-6 py-2 rounded-full text-lg font-semibold shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 flex items-center"
+    >
+        Process Another Image
+    </a>
+</div>
+        </div>
+    </div>
+
+    <!-- Animated Burn Info Card Overlay -->
+<div id="burnInfoCard"
+     class="burn-info-card fixed z-50 top-1/2 left-1/2 w-full max-w-md rounded-3xl overflow-y-auto shadow-2xl"
+     style="background: linear-gradient(135deg, #fffbe6 0%, #ffe0b2 40%, #ff7043 100%); box-shadow: 0 0 60px 10px #ff7043aa; max-height: 100vh;">
+    <div class="relative p-4 sm:p-8">
+        <button id="closeBurnInfo" class="absolute top-4 right-4 text-3xl text-gray-400 hover:text-red-600 transition-colors duration-200 font-bold" aria-label="Close">&times;</button>
+        <div class="flex flex-col items-center">
+            <div class="mb-4">
+                <i class="fa-solid fa-temperature-full text-6xl text-red-500 drop-shadow-lg animate-bounce"></i>
+            </div>
+            <h2 class="text-2xl font-extrabold text-gray-900 mb-2 tracking-wide drop-shadow" id="burnTitle">{{ burn_info[burn_degree]['title'] }}</h2>
+            <div class="w-full h-3 rounded-full bg-gradient-to-r from-yellow-300 via-orange-400 to-red-600 mb-6 shadow-inner"></div>
+            <div class="space-y-4 text-gray-800 text-lg leading-relaxed animate-fade-in" id="burnDetails">
+                <div>
+                    <span class="font-semibold text-red-700">Causes:</span>
+                    <span id="burnCauses">{{ burn_info[burn_degree]['causes'] }}</span>
+                </div>
+                <div>
+                    <span class="font-semibold text-red-700">Symptoms:</span>
+                    <span id="burnSymptoms">{{ burn_info[burn_degree]['symptoms'] }}</span>
+                </div>
+                <div>
+                    <span class="font-semibold text-blue-700">What To Do:</span>
+                    <span id="burnTreatment">{{ burn_info[burn_degree]['treatment'] }}</span>
+                </div>
+                <div>
+                    <span class="font-semibold text-yellow-700">When To Get Medical Help:</span>
+                    <span id="burnHelp">{{ burn_info[burn_degree]['when_to_seek_help'] }}</span>
+                </div>
+            </div>
+            <div class="mt-6 p-4 bg-yellow-100 border-l-4 border-yellow-500 rounded w-full">
+                <strong class="block text-yellow-800 mb-1">Disclaimer:</strong>
+                This tool gives general information only. It does not replace medical advice. For serious burns or if you are unsure, contact a healthcare professional or call emergency services.
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        // GSAP Animations for main card
+        gsap.from("#resultCard", {
+            duration: 1,
+            y: 50,
+            opacity: 0,
+            ease: "power3.out"
+        });
+
+        // Burn Info Card logic
+        const showBtn = document.getElementById('showBurnInfo');
+        const card = document.getElementById('burnInfoCard');
+        const closeBtn = document.getElementById('closeBurnInfo');
+        const burnDetails = document.getElementById('burnDetails');
+
+        showBtn.addEventListener('click', () => {
+            card.classList.add('open');
+            setTimeout(() => {
+                burnDetails.classList.add('visible');
+            }, 300);
+        });
+
+        closeBtn.addEventListener('click', () => {
+            card.classList.remove('open');
+            burnDetails.classList.remove('visible');
+        });
+
+        // Optional: Close card when clicking outside
+        document.addEventListener('mousedown', function(event) {
+            if (
+                card.classList.contains('open') &&
+                !card.contains(event.target) &&
+                !showBtn.contains(event.target)
+            ) {
+                card.classList.remove('open');
+                burnDetails.classList.remove('visible');
+            }
+        });
+
+        // Animate text in on open
+        document.addEventListener('DOMContentLoaded', () => {
+            burnDetails.classList.remove('visible');
+        });
+    </script>
 </body>
 </html>

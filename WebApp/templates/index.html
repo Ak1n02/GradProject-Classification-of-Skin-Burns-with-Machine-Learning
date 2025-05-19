@@ -1,37 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Burn Classification</title>
-    <script>
-        function previewImage(event) {
-            const imagePreview = document.getElementById("imagePreview");
-            const file = event.target.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imagePreview.src = e.target.result;
-                    imagePreview.style.display = "block";
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Burn Classification</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #f8fafc, #e2e8f0);
+    }
+    .drop-zone:hover {
+      border-color: #3b82f6;
+    }
+  </style>
 </head>
-<body>
-    <h1>Burn Classification Tool</h1>
+<body class="flex items-center justify-center min-h-screen px-4">
+
+  <div class="w-full max-w-lg p-6 bg-white rounded-2xl shadow-2xl transition-all duration-500 ease-in-out">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Burn Classification Tool</h1>
+
     <form method="POST" enctype="multipart/form-data">
-        <p>
-            <label for="image">Upload a burn image:</label>
-            <input type="file" name="image" id="image" accept="image/*" required onchange="previewImage(event)">
-        </p>
-        <p>
-            <img id="imagePreview" src="" alt="Image Preview" style="display:none; max-width: 300px; margin-top: 10px;">
-        </p>
-        <p>
-            <input type="submit" value="Analyze Image">
-        </p>
+      <!-- Upload Area -->
+      <div
+        class="drop-zone flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-8 text-center transition duration-300 ease-in-out cursor-pointer hover:shadow-lg bg-gray-50"
+        onclick="document.getElementById('image').click();"
+        ondragover="event.preventDefault(); this.classList.add('border-blue-500');"
+        ondragleave="this.classList.remove('border-blue-500');"
+        ondrop="handleDrop(event)"
+      >
+        <img src="../static/src/cloud_upload.png" alt="Upload Icon" class="w-20 h-20 mb-4 opacity-80 transition duration-300 " />
+        <p class="text-gray-600 mb-1 font-medium">Drag & drop or click to upload</p>
+        <p class="text-sm text-gray-400">Only image files (JPG, PNG, JPEG) are supported.</p>
+      </div>
+
+      <input
+        type="file"
+        name="image"
+        id="image"
+        accept="image/*"
+        required
+        class="hidden"
+        onchange="previewImage(event)"
+      />
+
+      <!-- Preview -->
+      <div class="mt-6">
+        <img id="imagePreview" src="" alt="Image Preview" class="hidden w-full max-h-64 object-contain rounded-lg border border-gray-300 p-2" />
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-6 text-center">
+        <input
+          type="submit"
+          value="Analyze Image"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-full shadow transition-all duration-300 hover:scale-105 cursor-pointer"
+        />
+      </div>
     </form>
+  </div>
+
+  <script>
+    function previewImage(event) {
+      const imagePreview = document.getElementById("imagePreview");
+      const file = event.target.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          imagePreview.src = e.target.result;
+          imagePreview.classList.remove("hidden");
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function handleDrop(event) {
+      event.preventDefault();
+      const fileInput = document.getElementById('image');
+      const dt = event.dataTransfer;
+      const files = dt.files;
+
+      if (files.length > 0) {
+        fileInput.files = files;
+        previewImage({ target: { files } });
+      }
+    }
+  </script>
+
 </body>
 </html>

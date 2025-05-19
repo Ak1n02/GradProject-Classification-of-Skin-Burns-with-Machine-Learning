@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Burn Classification - Main Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            font-family: 'Inter', sans-serif;
+        }
+        .notification-box {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.17);
+        }
+        .warning-message {
+            color: #e53e3e;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        .notification-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            color: #fff;
+        }
+        .notification-content {
+            color: #f1f1f1;
+            font-size: 1.05rem;
+        }
+    </style>
+    <script>
+        function approveAndRedirect() {
+            window.location.href = "{{ url_for('index') }}";
+        }
+    </script>
+</head>
+<body class="flex items-center justify-center px-4">
+    <div class="max-w-2xl w-full flex flex-col items-center">
+        <div class="notification-box w-full">
+            <div class="warning-message">
+                You must approve before using this application.
+            </div>
+            <div class="notification-title">
+                Terms of Use for Our Burn Detection Application
+            </div>
+            <div class="notification-content">
+                For our application to work correctly, please follow these rules:<br><br>
+                📌 Uploaded images must contain a burn.<br>
+                📌 Uploaded images should not contain excessive noise.<br>
+                📌 Uploaded images should be clear and not overly bright.<br><br>
+                If these rules are not followed, our application may not work properly.
+            </div>
+        </div>
+        <button
+            onclick="approveAndRedirect()"
+            class="mt-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-3 rounded-full text-xl font-semibold shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300"
+        >
+            Approve and Continue
+        </button>
+    </div>
+</body>
+</html>

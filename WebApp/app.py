@@ -11,15 +11,15 @@ from preprocess_ak1n import process_image
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'WebApp/static/uploads'
-RESULT_FOLDER = 'WebApp/static/results'
+UPLOAD_FOLDER = 'static/uploads'
+RESULT_FOLDER = 'static/results'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESULT_FOLDER, exist_ok=True)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['RESULT_FOLDER'] = RESULT_FOLDER
 
-MODEL_PATH = r"E:\asd\regnet94valacc.pth"
+MODEL_PATH = "regnet94valacc.pth"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = timm.create_model('regnety_080', pretrained=True)
 model.reset_classifier(num_classes=3)
@@ -91,38 +91,52 @@ def index():
     if request.method == 'POST':
         if 'image' not in request.files:
             return "No image file part", 400
-        file = request.files['image']
-        if file.filename == '':
-            return "No file selected", 400
 
-        upload_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        file.save(upload_path)
+        files = request.files.getlist('image')
+        if len(files) == 0:
+            return "No files selected", 400
 
-        removed_path = os.path.join(app.config['RESULT_FOLDER'], 'removed_' + file.filename)
-        process_and_save(upload_path, removed_path)
+        burn_results = []
 
-        preprocessed_image = process_image(removed_path)
-        if preprocessed_image is None:
-            return "Error during preprocessing", 500
+        for file in files:
+            if file.filename == '':
+                continue
 
-        if preprocessed_image.shape[2] == 3:
-            preprocessed_image = cv2.cvtColor(preprocessed_image, cv2.COLOR_BGR2RGB)
-        elif preprocessed_image.shape[2] == 4:
-            preprocessed_image = cv2.cvtColor(preprocessed_image, cv2.COLOR_BGRA2RGB)
+            filename = file.filename
+            upload_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(upload_path)
 
-        input_tensor = transform(preprocessed_image).unsqueeze(0)
-        with torch.no_grad():
-            outputs = model(input_tensor)
-            _, predicted = torch.max(outputs, 1)
-            burn_degree = class_names.get(predicted.item(), "Unknown")
+            removed_path = os.path.join(app.config['RESULT_FOLDER'], 'removed_' + filename)
+            process_and_save(upload_path, removed_path)
 
-        result_filename = 'final_' + file.filename
-        result_image_path = os.path.join(app.config['RESULT_FOLDER'], result_filename)
-        cv2.imwrite(result_image_path, cv2.cvtColor(preprocessed_image, cv2.COLOR_RGB2BGR))
+            preprocessed_image = process_image(removed_path)
+            if preprocessed_image is None:
+                continue
 
-        result_image_url = url_for('static', filename=f'results/{result_filename}')
+            if preprocessed_image.shape[2] == 3:
+                preprocessed_image = cv2.cvtColor(preprocessed_image, cv2.COLOR_BGR2RGB)
+            elif preprocessed_image.shape[2] == 4:
+                preprocessed_image = cv2.cvtColor(preprocessed_image, cv2.COLOR_BGRA2RGB)
 
-        return render_template('result.html', burn_degree=burn_degree, result_image=result_image_url, burn_info=burn_info)
+            input_tensor = transform(preprocessed_image).unsqueeze(0)
+            with torch.no_grad():
+                outputs = model(input_tensor)
+                _, predicted = torch.max(outputs, 1)
+                burn_degree = class_names.get(predicted.item(), "Unknown")
+
+            result = {
+                "filename": filename,
+                "burn_degree": burn_degree,
+                "causes": burn_info[burn_degree]["causes"],
+                "symptoms": burn_info[burn_degree]["symptoms"],
+                "treatment": burn_info[burn_degree]["treatment"],
+                "when_to_seek_help": burn_info[burn_degree]["when_to_seek_help"],
+                "image_url": url_for('static', filename='uploads/' + filename)
+            }
+
+            burn_results.append(result)
+
+        return render_template('result.html', burn_results=burn_results)
     return render_template('index.html')
 
 if __name__ == '__main__':

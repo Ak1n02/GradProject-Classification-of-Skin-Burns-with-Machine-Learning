@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Burn Classification - Main Page</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='src/fire_7508338.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -12,7 +13,9 @@
             font-family: 'Inter', sans-serif;
         }
         .notification-box {
-            background: rgba(255,255,255,0.12);
+            background: linear-gradient(-45deg, #1f2d3a, #2f4858, #3d6b80, #1f2d3a);
+            background-size: 500% 500%;
+            animation: gradientBG 6s ease infinite;
             border: 1px solid rgba(255,255,255,0.2);
             border-radius: 1rem;
             padding: 2rem;
@@ -20,7 +23,7 @@
             box-shadow: 0 8px 32px 0 rgba(31,38,135,0.17);
         }
         .warning-message {
-            color: #e53e3e;
+            color: #e0b847;
             font-weight: bold;
             margin-bottom: 1rem;
             font-size: 1.2rem;
@@ -35,6 +38,11 @@
             color: #f1f1f1;
             font-size: 1.05rem;
         }
+        @keyframes gradientBG {
+            0% {background-position: 0 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0 50%;}
+        }
     </style>
     <script>
         function approveAndRedirect() {
@@ -46,7 +54,7 @@
     <div class="max-w-2xl w-full flex flex-col items-center">
         <div class="notification-box w-full">
             <div class="warning-message">
-                You must approve before using this application.
+                ⚠️ You must approve before using this application.
             </div>
             <div class="notification-title">
                 Terms of Use for Our Burn Detection Application

@@ -65,10 +65,33 @@
     .animate-fade-in.visible {
       opacity: 1;
     }
+    .glow {
+      animation: glowPulse 1.2s ease-in-out infinite;
+      transform: scale(1.1);
+      z-index: 10;
+    }
+
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
+      }
+      100% {
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center px-2">
 
+  <!-- 🚨 Horizontal Severity Level Boxes -->
+  <div id="severityBar" class="fixed top-6 right-6 flex gap-1 z-50">
+    <div id="severity-1" class="w-10 h-10 flex items-center justify-center text-white font-bold bg-green-500 text-sm rounded-md cursor-default" title="1st-degree: Mild">1</div>
+    <div id="severity-2" class="w-10 h-10 flex items-center justify-center text-white font-bold bg-yellow-400 text-sm rounded-md cursor-default" title="2nd-degree: Blisters">2</div>
+    <div id="severity-3" class="w-10 h-10 flex items-center justify-center text-white font-bold bg-red-500 text-sm rounded-md cursor-default" title="3rd-degree: Critical">3</div>
+  </div>
   <!-- ✅ Toast Container -->
   <div id="toast" class="fixed top-5 right-5 bg-red-500 text-white px-4 py-2 rounded shadow-lg hidden z-50">
     Please select a file from the list first.
@@ -159,6 +182,21 @@
       document.getElementById("selectedImage").src = selected.image_url;
       document.getElementById("selectedDegree").textContent = selected.burn_degree;
       document.getElementById("selectedPreview").classList.remove("hidden");
+
+      highlightSeverity(selected.burn_degree);
+    }
+    function highlightSeverity(burnDegree) {
+      ["severity-1", "severity-2", "severity-3"].forEach(id =>
+        document.getElementById(id).classList.remove("glow")
+      );
+
+      if (burnDegree.includes("First")) {
+        document.getElementById("severity-1").classList.add("glow");
+      } else if (burnDegree.includes("Second")) {
+        document.getElementById("severity-2").classList.add("glow");
+      } else if (burnDegree.includes("Third")) {
+        document.getElementById("severity-3").classList.add("glow");
+      }
     }
     function showToast(message) {
       const toast = document.getElementById("toast");

@@ -52,7 +52,7 @@
       <!-- 🔄 Progress Bar with Animated Effect -->
       <div id="progress-container" class="w-full bg-gray-200 rounded-full h-6 mt-6 overflow-hidden hidden relative">
         <div id="progress-bar" class="absolute h-full w-1/3 bg-blue-600 animate-progress"></div>
-        <span class="absolute inset-0 flex items-center justify-center text-sm font-semibold text-gray-600">In Progress...</span>
+        <span id="progress-text" class="absolute inset-0 flex items-center justify-center text-sm font-semibold text-gray-600">In Progress...</span>
       </div>
       <!-- Submit Button -->
       <div class="mt-6 text-center">
@@ -64,93 +64,108 @@
   </div>
 
   <script>
-    function showToast(fileCount) {
-      const toast = document.getElementById("toast-success");
-      toast.textContent = `✅ ${fileCount} ${fileCount > 1 ? "images uploaded successfully!" : "image uploaded successfully!"}`;
-      toast.classList.remove("hidden", "opacity-0");
-      toast.classList.add("opacity-100");
+  function showToast(fileCount) {
+    const toast = document.getElementById("toast-success");
+    toast.textContent = `✅ ${fileCount} ${fileCount > 1 ? "images uploaded successfully!" : "image uploaded successfully!"}`;
+    toast.classList.remove("hidden", "opacity-0");
+    toast.classList.add("opacity-100");
 
-      setTimeout(() => {
-        toast.classList.remove("opacity-100");
-        toast.classList.add("opacity-0");
-      }, 3000);
-      setTimeout(() => {
-        toast.classList.add("hidden");
-      }, 3500);
-    }
+    setTimeout(() => {
+      toast.classList.remove("opacity-100");
+      toast.classList.add("opacity-0");
+    }, 3000);
+    setTimeout(() => {
+      toast.classList.add("hidden");
+    }, 3500);
+  }
 
-    function showErrorToast() {
-      const toast = document.getElementById("toast-error");
-      toast.textContent = "Please upload at least one image before submitting.";
-      toast.classList.remove("hidden", "opacity-0");
-      toast.classList.add("opacity-100");
+  function showErrorToast() {
+    const toast = document.getElementById("toast-error");
+    toast.textContent = "Please upload at least one image before submitting.";
+    toast.classList.remove("hidden", "opacity-0");
+    toast.classList.add("opacity-100");
 
+    setTimeout(() => {
+      toast.classList.remove("opacity-100");
+      toast.classList.add("opacity-0");
+    }, 3000);
+    setTimeout(() => {
+      toast.classList.add("hidden");
+    }, 3500);
+  }
+
+  function showProgressSequence() {
+    const texts = ["Uploading...", "Analyzing...", "Removing Background...", "Preprocessing...", "Classifying...","Almost Done!"];
+    const progressText = document.getElementById("progress-text");
+    let i = 0;
+    progressText.textContent = texts[i];
+    for (let j = 1; j < texts.length; j++) {
       setTimeout(() => {
-        toast.classList.remove("opacity-100");
-        toast.classList.add("opacity-0");
-      }, 3000);
-      setTimeout(() => {
-        toast.classList.add("hidden");
-      }, 3500);
+        progressText.textContent = texts[j];
+      }, j * 2000);
     }
-    function simulateProgressBar() {
-      const container = document.getElementById("progress-container");
-      container.classList.remove("hidden");
+  }
+
+  function simulateProgressBar() {
+    const container = document.getElementById("progress-container");
+    container.classList.remove("hidden");
+    showProgressSequence();
+  }
+
+  function checkBeforeSubmit() {
+    const files = document.getElementById("image").files;
+    if (!files || files.length === 0) {
+      showErrorToast();
+      return false;
     }
-    function checkBeforeSubmit() {
-      const files = document.getElementById("image").files;
-      if (!files || files.length === 0) {
-        showErrorToast();
-        return false;
+    simulateProgressBar();
+    return true;
+  }
+
+  function handleMultipleFiles(event) {
+    const fileList = document.getElementById("fileList");
+    const imagePreview = document.getElementById("imagePreview");
+    const imagePreviewArea = document.getElementById("imagePreviewArea");
+    const files = event.target.files;
+
+    imagePreview.src = "";
+    imagePreview.classList.add("hidden");
+    fileList.innerHTML = "";
+
+    if (files.length > 0) {
+      showToast(files.length);
+      for (let i = 0; i < files.length; i++) {
+        const fileItem = document.createElement("li");
+        fileItem.textContent = files[i].name;
+        fileItem.classList.add("hover:underline");
+
+        fileItem.addEventListener("click", () => {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            imagePreview.src = e.target.result;
+            imagePreview.classList.remove("hidden");
+            imagePreviewArea.scrollIntoView({ behavior: "smooth" });
+          };
+          reader.readAsDataURL(files[i]);
+        });
+
+        fileList.appendChild(fileItem);
       }
-      simulateProgressBar();
-      return true;
     }
+  }
 
-    function handleMultipleFiles(event) {
-      const fileList = document.getElementById("fileList");
-      const imagePreview = document.getElementById("imagePreview");
-      const imagePreviewArea = document.getElementById("imagePreviewArea");
-      const files = event.target.files;
+  function handleDrop(event) {
+    event.preventDefault();
+    const fileInput = document.getElementById('image');
+    const dt = event.dataTransfer;
+    const files = dt.files;
 
-      imagePreview.src = "";
-      imagePreview.classList.add("hidden");
-      fileList.innerHTML = "";
-
-      if (files.length > 0) {
-        showToast(files.length);
-        for (let i = 0; i < files.length; i++) {
-          const fileItem = document.createElement("li");
-          fileItem.textContent = files[i].name;
-          fileItem.classList.add("hover:underline");
-
-          fileItem.addEventListener("click", () => {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-              imagePreview.src = e.target.result;
-              imagePreview.classList.remove("hidden");
-              imagePreviewArea.scrollIntoView({ behavior: "smooth" });
-            };
-            reader.readAsDataURL(files[i]);
-          });
-
-          fileList.appendChild(fileItem);
-        }
-      }
+    if (files.length > 0) {
+      fileInput.files = files;
+      handleMultipleFiles({ target: { files } });
     }
-
-    function handleDrop(event) {
-      event.preventDefault();
-      const fileInput = document.getElementById('image');
-      const dt = event.dataTransfer;
-      const files = dt.files;
-
-      if (files.length > 0) {
-        fileInput.files = files;
-        handleMultipleFiles({ target: { files } });
-      }
-    }
-  </script>
+  }
+</script>
 
 </body>
 </html>

@@ -75,11 +75,19 @@ def remove_background_rembg(image_path):
     return np.array(output_image)
 
 
-# Compare results using SSIM
 def compare_images(img1, img2):
-    gray1 = cv2.cvtColor(img1, cv2.COLOR_BGRA2GRAY)
-    gray2 = cv2.cvtColor(img2, cv2.COLOR_BGRA2GRAY)
-    return ssim(gray1, gray2)
+    # Convert both to grayscale
+    gray1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+    gray2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
+
+    # Resize both images to the same dimensions (e.g., smallest one)
+    min_height = min(gray1.shape[0], gray2.shape[0])
+    min_width = min(gray1.shape[1], gray2.shape[1])
+
+    gray1_resized = cv2.resize(gray1, (min_width, min_height))
+    gray2_resized = cv2.resize(gray2, (min_width, min_height))
+
+    return ssim(gray1_resized, gray2_resized)
 
 
 # Foreground pixel analysis
@@ -104,6 +112,9 @@ def histogram_difference(img1, img2):
 
 # Decide the best method for background removal
 def decide_best_method(output_u2net, output_rembg, original_image,image_path, min_foreground_threshold=0.2):
+    target_shape = (original_image.shape[1], original_image.shape[0])  # (width, height)
+    output_u2net = cv2.resize(output_u2net, target_shape)
+    output_rembg = cv2.resize(output_rembg, target_shape)
     score_ssim = compare_images(output_u2net, output_rembg)
     score_foreground = foreground_pixel_analysis(output_u2net)  # Measure how much foreground remains
     score_edge = edge_similarity(output_u2net, output_rembg)
